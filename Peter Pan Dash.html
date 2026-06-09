@@ -1,0 +1,1943 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Puer Aeternus — Von Franz</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1410;
+    --paper: #f7f3ec;
+    --gold: #b8976a;
+    --gold-light: #e8d8be;
+    --rust: #8b4513;
+    --rust-light: #c4896e;
+    --sage: #5c6b4e;
+    --sage-light: #c8d4bf;
+    --indigo: #2d3561;
+    --indigo-light: #b8c0e8;
+    --mist: #ede8e0;
+    --border: #d4c9b8;
+    --text-muted: #6b5e4e;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    min-height: 100vh;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 48px 40px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 280px; height: 280px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(184,151,106,0.15), transparent 70%);
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: 20%;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(184,151,106,0.08), transparent 70%);
+  }
+  .header-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+  .header-eyebrow {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+    margin-bottom: 16px;
+  }
+  .header h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(44px, 7vw, 72px);
+    font-weight: 300;
+    line-height: 1.05;
+    letter-spacing: -1px;
+    margin-bottom: 8px;
+  }
+  .header h1 em {
+    color: var(--gold);
+    font-style: italic;
+  }
+  .header-author {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    color: rgba(247,243,236,0.6);
+    font-weight: 300;
+    margin-bottom: 28px;
+  }
+  .header-meta {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .meta-stat {
+    text-align: center;
+  }
+  .meta-stat .num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px;
+    font-weight: 300;
+    color: var(--gold);
+    display: block;
+    line-height: 1;
+  }
+  .meta-stat .label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(247,243,236,0.5);
+    display: block;
+    margin-top: 4px;
+  }
+  .lang-toggle {
+    position: absolute;
+    top: 0; right: 0;
+    display: flex;
+    border: 1px solid rgba(184,151,106,0.4);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .lang-btn {
+    padding: 8px 18px;
+    background: transparent;
+    color: rgba(247,243,236,0.5);
+    border: none;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: all 0.2s;
+  }
+  .lang-btn.active {
+    background: var(--gold);
+    color: var(--ink);
+  }
+
+  /* NAV */
+  .nav {
+    background: white;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .nav-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 40px;
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .nav-inner::-webkit-scrollbar { display: none; }
+  .nav-btn {
+    padding: 16px 20px;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: var(--text-muted);
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+  .nav-btn.active, .nav-btn:hover {
+    color: var(--ink);
+    border-bottom-color: var(--gold);
+  }
+
+  /* CONTENT */
+  .content {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 48px 40px;
+  }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* SECTION TITLE */
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    font-weight: 300;
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+  .section-subtitle {
+    color: var(--text-muted);
+    font-size: 14px;
+    margin-bottom: 40px;
+    font-style: italic;
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  /* OVERVIEW */
+  .overview-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 32px;
+  }
+  @media (max-width: 600px) { .overview-grid { grid-template-columns: 1fr; } }
+  .overview-block {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 28px;
+  }
+  .overview-block h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: var(--rust);
+  }
+  .overview-block p {
+    color: var(--text-muted);
+    font-size: 14px;
+    line-height: 1.8;
+  }
+  .overview-main {
+    grid-column: 1 / -1;
+    background: var(--ink);
+    color: var(--paper);
+    border: none;
+  }
+  .overview-main h3 { color: var(--gold); }
+  .overview-main p { color: rgba(247,243,236,0.75); }
+  .pull-quote {
+    border-left: 3px solid var(--gold);
+    padding: 20px 24px;
+    margin: 32px 0;
+    background: white;
+    border-radius: 0 6px 6px 0;
+  }
+  .pull-quote p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--ink);
+  }
+  .pull-quote cite {
+    display: block;
+    margin-top: 12px;
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-style: normal;
+  }
+
+  /* CONFERENCES */
+  .conf-part-label {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+    margin: 40px 0 16px;
+  }
+  .conf-part-label:first-child { margin-top: 0; }
+  .conf-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+  }
+  .conf-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 24px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+  }
+  .conf-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  }
+  .conf-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 42px;
+    font-weight: 300;
+    color: var(--gold-light);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .conf-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    line-height: 1.3;
+  }
+  .conf-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  /* CONCEPTS */
+  .concepts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+  }
+  .concept-card {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 24px;
+    background: white;
+    transition: all 0.2s;
+  }
+  .concept-card:hover { border-color: var(--indigo-light); }
+  .concept-term {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--indigo);
+    margin-bottom: 4px;
+  }
+  .concept-latin {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-style: italic;
+    margin-bottom: 12px;
+  }
+  .concept-def {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  /* ARCHETYPES */
+  .arch-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  .arch-card {
+    border-radius: 6px;
+    padding: 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .arch-card::before {
+    content: attr(data-symbol);
+    position: absolute;
+    right: 20px; top: 20px;
+    font-size: 48px;
+    opacity: 0.12;
+    line-height: 1;
+  }
+  .arch-card.puer { background: #f0ebe1; border: 1px solid #d4c8b0; }
+  .arch-card.senex { background: #e8edf5; border: 1px solid #b8c4d4; }
+  .arch-card.mother { background: #f0ede8; border: 1px solid #d4c4b4; }
+  .arch-card.child { background: #edf0e8; border: 1px solid #c4d4b8; }
+  .arch-card.shadow { background: #ede8ed; border: 1px solid #c4b4c4; }
+  .arch-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .arch-role {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+  }
+  .arch-desc {
+    font-size: 13px;
+    line-height: 1.8;
+    color: var(--text-muted);
+  }
+
+  /* THEMES */
+  .themes-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .theme-row {
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 20px;
+    align-items: start;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 24px;
+  }
+  .theme-icon {
+    width: 48px; height: 48px;
+    background: var(--mist);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+  .theme-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .theme-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.8;
+  }
+
+  /* HEALING — star section */
+  .healing-hero {
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: 8px;
+    padding: 40px;
+    margin-bottom: 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .healing-hero::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; right: -80px;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(184,151,106,0.12), transparent 70%);
+  }
+  .healing-hero h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px;
+    font-weight: 300;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .healing-hero p {
+    color: rgba(247,243,236,0.65);
+    font-size: 14px;
+    max-width: 600px;
+    line-height: 1.8;
+  }
+  .healing-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .healing-step {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    gap: 0;
+    position: relative;
+  }
+  .healing-step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 31px;
+    top: 64px;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--gold-light), transparent);
+  }
+  .step-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 24px;
+    flex-shrink: 0;
+  }
+  .step-dot {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: var(--gold-light);
+    border: 2px solid var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--rust);
+    flex-shrink: 0;
+    z-index: 1;
+  }
+  .step-body {
+    padding: 24px 0 32px 24px;
+    border-bottom: 1px solid var(--mist);
+  }
+  .healing-step:last-child .step-body { border-bottom: none; }
+  .step-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--ink);
+    line-height: 1.2;
+  }
+  .step-desc {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.85;
+  }
+  .step-quote {
+    margin-top: 14px;
+    padding: 14px 18px;
+    background: var(--mist);
+    border-radius: 4px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    font-style: italic;
+    color: var(--rust);
+    line-height: 1.6;
+  }
+  .healing-insight {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 32px;
+    margin-top: 32px;
+  }
+  .healing-insight h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    color: var(--rust);
+    margin-bottom: 14px;
+  }
+  .healing-insight p {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.85;
+  }
+
+  /* QUIZ */
+  .quiz-question {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 28px;
+    margin-bottom: 16px;
+  }
+  .quiz-q {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 19px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    line-height: 1.4;
+  }
+  .quiz-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .quiz-opt {
+    padding: 12px 16px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.15s;
+    background: var(--paper);
+    text-align: left;
+  }
+  .quiz-opt:hover { border-color: var(--gold); background: var(--gold-light); }
+  .quiz-opt.correct { background: #e8f4e8; border-color: #5c8c5c; color: #2d5c2d; }
+  .quiz-opt.wrong { background: #f4e8e8; border-color: #8c5c5c; color: #5c2d2d; }
+  .quiz-explanation {
+    margin-top: 14px;
+    padding: 14px;
+    background: var(--mist);
+    border-radius: 4px;
+    font-size: 13px;
+    color: var(--text-muted);
+    display: none;
+  }
+  .quiz-explanation.visible { display: block; }
+  .quiz-score {
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: 6px;
+    padding: 24px;
+    text-align: center;
+    margin-bottom: 24px;
+  }
+  .quiz-score .score-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 56px;
+    font-weight: 300;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .quiz-score .score-label {
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(247,243,236,0.5);
+    margin-top: 4px;
+  }
+
+  /* QUESTIONNAIRE */
+  .q-intro {
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: 8px;
+    padding: 40px;
+    margin-bottom: 36px;
+    position: relative;
+    overflow: hidden;
+  }
+  .q-intro::after {
+    content: '◈';
+    position: absolute;
+    right: 32px; bottom: -10px;
+    font-size: 120px;
+    opacity: 0.06;
+    line-height: 1;
+  }
+  .q-intro h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 30px;
+    font-weight: 300;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+  .q-intro p { color: rgba(247,243,236,0.65); font-size: 14px; line-height: 1.8; max-width: 560px; }
+  .q-start-btn {
+    margin-top: 24px;
+    padding: 12px 28px;
+    background: var(--gold);
+    color: var(--ink);
+    border: none;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  .q-start-btn:hover { opacity: 0.85; }
+  #q-flow { display: none; }
+  #q-result { display: none; }
+  .q-progress-bar {
+    background: var(--mist);
+    border-radius: 4px;
+    height: 4px;
+    margin-bottom: 32px;
+    overflow: hidden;
+  }
+  .q-progress-fill {
+    height: 100%;
+    background: var(--gold);
+    border-radius: 4px;
+    transition: width 0.4s ease;
+  }
+  .q-question-num {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .q-question-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 300;
+    line-height: 1.35;
+    margin-bottom: 28px;
+    color: var(--ink);
+  }
+  .q-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .q-opt-btn {
+    padding: 16px 20px;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 1.6;
+    text-align: left;
+    color: var(--ink);
+    transition: all 0.15s;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+  .q-opt-btn:hover {
+    border-color: var(--gold);
+    background: #fdf9f3;
+    transform: translateX(4px);
+  }
+  .q-opt-letter {
+    flex-shrink: 0;
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    background: var(--mist);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-muted);
+    margin-top: 1px;
+  }
+  /* RESULT */
+  .result-header {
+    text-align: center;
+    padding: 48px 32px 36px;
+    position: relative;
+    border-radius: 8px;
+    margin-bottom: 28px;
+  }
+  .result-symbol {
+    font-size: 72px;
+    line-height: 1;
+    margin-bottom: 16px;
+    display: block;
+  }
+  .result-label {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+  .result-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 48px;
+    font-weight: 300;
+    line-height: 1.1;
+    margin-bottom: 10px;
+  }
+  .result-tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-style: italic;
+    font-weight: 300;
+    opacity: 0.75;
+  }
+  .result-scores {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+    margin-bottom: 32px;
+  }
+  @media (max-width: 560px) { .result-scores { grid-template-columns: repeat(3, 1fr); } }
+  .score-pill {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 8px;
+    text-align: center;
+  }
+  .score-pill.dominant { border-color: var(--gold); background: #fdf9f3; }
+  .score-pill-name { font-size: 11px; color: var(--text-muted); margin-bottom: 4px; }
+  .score-pill-bar {
+    height: 4px;
+    background: var(--mist);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 4px;
+  }
+  .score-pill-fill { height: 100%; background: var(--gold); border-radius: 2px; }
+  .score-pill.dominant .score-pill-fill { background: var(--rust); }
+  .score-pill-num { font-size: 12px; font-weight: 500; color: var(--text-muted); }
+  .result-section {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 28px;
+    margin-bottom: 20px;
+  }
+  .result-section h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 14px;
+  }
+  .result-section p { font-size: 14px; color: var(--text-muted); line-height: 1.85; margin-bottom: 10px; }
+  .result-section p:last-child { margin-bottom: 0; }
+  .heal-steps-list { display: flex; flex-direction: column; gap: 14px; margin-top: 16px; }
+  .heal-step-item {
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 14px;
+    align-items: start;
+  }
+  .heal-step-dot {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: var(--gold-light);
+    border: 1.5px solid var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--rust);
+    flex-shrink: 0;
+  }
+  .heal-step-text { font-size: 14px; color: var(--text-muted); line-height: 1.8; padding-top: 3px; }
+  .heal-step-text strong { color: var(--ink); font-weight: 500; }
+  .q-retake-btn {
+    display: block;
+    margin: 32px auto 0;
+    padding: 12px 32px;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    font-size: 13px;
+    color: var(--text-muted);
+    cursor: pointer;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: all 0.2s;
+  }
+  .q-retake-btn:hover { border-color: var(--gold); color: var(--ink); }
+
+  /* RESPONSIVE */
+  @media (max-width: 640px) {
+    .header { padding: 32px 20px 28px; }
+    .content { padding: 32px 20px; }
+    .nav-inner { padding: 0 20px; }
+    .nav-btn { padding: 14px 12px; font-size: 10px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="lang-toggle">
+      <button class="lang-btn active" onclick="setLang('es')" id="btn-es">ES</button>
+      <button class="lang-btn" onclick="setLang('en')" id="btn-en">EN</button>
+    </div>
+    <div class="header-eyebrow" data-es="Guía de estudio interactiva" data-en="Interactive Study Guide">Guía de estudio interactiva</div>
+    <h1><em>Puer</em> Aeternus</h1>
+    <div class="header-author">Marie-Louise von Franz — Kairós, 2006</div>
+    <div class="header-meta">
+      <div class="meta-stat"><span class="num">412</span><span class="label" data-es="páginas" data-en="pages">páginas</span></div>
+      <div class="meta-stat"><span class="num">12</span><span class="label" data-es="conferencias" data-en="lectures">conferencias</span></div>
+      <div class="meta-stat"><span class="num">2</span><span class="label" data-es="casos clínicos" data-en="case studies">casos clínicos</span></div>
+      <div class="meta-stat"><span class="num">1959</span><span class="label" data-es="Zürich, C.G. Jung Institute" data-en="Zürich, C.G. Jung Institute">Zürich, C.G. Jung Institute</span></div>
+    </div>
+  </div>
+</div>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <button class="nav-btn active" onclick="showTab('overview')" data-es="Panorama" data-en="Overview">Panorama</button>
+    <button class="nav-btn" onclick="showTab('conferences')" data-es="Conferencias" data-en="Lectures">Conferencias</button>
+    <button class="nav-btn" onclick="showTab('concepts')" data-es="Conceptos" data-en="Concepts">Conceptos</button>
+    <button class="nav-btn" onclick="showTab('archetypes')" data-es="Arquetipos" data-en="Archetypes">Arquetipos</button>
+    <button class="nav-btn" onclick="showTab('themes')" data-es="Temas" data-en="Themes">Temas</button>
+    <button class="nav-btn" onclick="showTab('healing')" data-es="Sanación ✦" data-en="Healing ✦">Sanación ✦</button>
+    <button class="nav-btn" onclick="showTab('quiz')" data-es="Quiz" data-en="Quiz">Quiz</button>
+    <button class="nav-btn" onclick="showTab('test')" data-es="¿Cuál eres tú? ◈" data-en="Which are you? ◈">¿Cuál eres tú? ◈</button>
+  </div>
+</nav>
+
+<div class="content">
+
+  <!-- OVERVIEW -->
+  <div class="tab-panel active" id="tab-overview">
+    <div class="section-title" data-es="Panorama general" data-en="Overview">Panorama general</div>
+    <div class="section-subtitle" data-es="La psicología del eterno adolescente" data-en="The psychology of the eternal adolescent">La psicología del eterno adolescente</div>
+    <div class="overview-grid">
+      <div class="overview-block overview-main">
+        <h3 data-es="Tesis central" data-en="Central Thesis">Tesis central</h3>
+        <p data-es="El puer aeternus es un arquetipo junguiano que describe al hombre atrapado en una identidad psicológica adolescente. Von Franz analiza dos textos literarios —El principito de Saint-Exupéry y El reino sin espacio de Bruno Goetz— para ilustrar cómo este complejo materno profundo se manifiesta: la huida del compromiso, la vida provisional, el terror a la finitud. El libro diagnostica la neurosis y apunta con claridad su única salida posible." data-en="The puer aeternus is a Jungian archetype describing a man trapped in a psychological adolescent identity. Von Franz analyzes two literary works — Saint-Exupéry's The Little Prince and Bruno Goetz's The Kingdom Without Space — to illustrate how this deep mother complex manifests: flight from commitment, provisional life, terror of finitude. The book diagnoses the neurosis and points clearly to its only possible way out.">El puer aeternus es un arquetipo junguiano que describe al hombre atrapado en una identidad psicológica adolescente. Von Franz analiza dos textos literarios —El principito de Saint-Exupéry y El reino sin espacio de Bruno Goetz— para ilustrar cómo este complejo materno profundo se manifiesta: la huida del compromiso, la vida provisional, el terror a la finitud. El libro diagnostica la neurosis y apunta con claridad su única salida posible.</p>
+      </div>
+      <div class="overview-block">
+        <h3 data-es="Origen del término" data-en="Origin of the Term">Origen del término</h3>
+        <p data-es="De las Metamorfosis de Ovidio: el dios niño Yaco, de los misterios eleusinos. Luego identificado con Dioniso y Eros. Significa 'eterna juventud'. Von Franz lo aplica clínicamente a un patrón psicológico definido." data-en="From Ovid's Metamorphoses: the child god Iacchus, of the Eleusinian mysteries. Later identified with Dionysus and Eros. Means 'eternal youth'. Von Franz applies it clinically to a defined psychological pattern.">De las Metamorfosis de Ovidio: el dios niño Yaco, de los misterios eleusinos. Luego identificado con Dioniso y Eros. Significa 'eterna juventud'. Von Franz lo aplica clínicamente a un patrón psicológico definido.</p>
+      </div>
+      <div class="overview-block">
+        <h3 data-es="Los dos casos literarios" data-en="The Two Literary Cases">Los dos casos literarios</h3>
+        <p data-es="Conferencias 1–8: El principito (Saint-Exupéry). Conferencias 9–12: El reino sin espacio (Bruno Goetz). Ambos textos como documentos del inconsciente colectivo y del complejo materno." data-en="Lectures 1–8: The Little Prince (Saint-Exupéry). Lectures 9–12: The Kingdom Without Space (Bruno Goetz). Both texts as documents of the collective unconscious and the mother complex.">Conferencias 1–8: El principito (Saint-Exupéry). Conferencias 9–12: El reino sin espacio (Bruno Goetz). Ambos textos como documentos del inconsciente colectivo y del complejo materno.</p>
+      </div>
+      <div class="overview-block">
+        <h3 data-es="Relevancia actual" data-en="Contemporary Relevance">Relevancia actual</h3>
+        <p data-es="Von Franz advierte: el puer aeternus no es sólo un caso individual, sino un problema de época. El aumento del complejo materno en la modernidad está ligado a la crisis religiosa y a la pérdida de ritos de iniciación masculinos." data-en="Von Franz warns: the puer aeternus is not just an individual case, but a problem of the age. The increase in the mother complex in modernity is linked to the religious crisis and the loss of male initiation rites.">Von Franz advierte: el puer aeternus no es sólo un caso individual, sino un problema de época. El aumento del complejo materno en la modernidad está ligado a la crisis religiosa y a la pérdida de ritos de iniciación masculinos.</p>
+      </div>
+    </div>
+    <div class="pull-quote">
+      <p data-es="«El trabajo es la palabra desagradable que ningún puer aeternus quiere oír. Y sin embargo, es la respuesta.»" data-en="«Work is the disagreeable word that no puer aeternus wants to hear. And yet, it is the answer.»">«El trabajo es la palabra desagradable que ningún puer aeternus quiere oír. Y sin embargo, es la respuesta.»</p>
+      <cite>Marie-Louise von Franz</cite>
+    </div>
+  </div>
+
+  <!-- CONFERENCES -->
+  <div class="tab-panel" id="tab-conferences">
+    <div class="section-title" data-es="Las doce conferencias" data-en="The Twelve Lectures">Las doce conferencias</div>
+    <div class="section-subtitle" data-es="Seminario de invierno 1959–1960, C.G. Jung Institute, Zürich" data-en="Winter seminar 1959–1960, C.G. Jung Institute, Zürich">Seminario de invierno 1959–1960, C.G. Jung Institute, Zürich</div>
+
+    <div class="conf-part-label" data-es="Parte I — El principito (Saint-Exupéry)" data-en="Part I — The Little Prince (Saint-Exupéry)">Parte I — El principito (Saint-Exupéry)</div>
+    <div class="conf-grid">
+      <div class="conf-card">
+        <div class="conf-num">01</div>
+        <div class="conf-title" data-es="Definición del puer aeternus" data-en="Definition of the Puer Aeternus">Definición del puer aeternus</div>
+        <div class="conf-desc" data-es="Origen mitológico, rasgos característicos: vida provisional, terror al compromiso, donjuanismo, homosexualidad, deportes de riesgo. El problema de época." data-en="Mythological origin, characteristic traits: provisional life, terror of commitment, Don Juanism, homosexuality, extreme sports. The problem as a sign of the times.">Origen mitológico, rasgos característicos: vida provisional, terror al compromiso, donjuanismo, homosexualidad, deportes de riesgo. El problema de época.</div>
+      </div>
+      <div class="conf-card">
+        <div class="conf-num">02</div>
+        <div class="conf-title" data-es="Saint-Exupéry y El principito" data-en="Saint-Exupéry and The Little Prince">Saint-Exupéry y El principito</div>
+        <div class="conf-desc" data-es="Análisis biográfico de Saint-Exupéry como puer aeternus. Los primeros capítulos del libro: el aviador, el choque en el desierto, el encuentro con el príncipe." data-en="Biographical analysis of Saint-Exupéry as a puer aeternus. The first chapters of the book: the aviator, the crash in the desert, the encounter with the prince.">Análisis biográfico de Saint-Exupéry como puer aeternus. Los primeros capítulos del libro: el aviador, el choque en el desierto, el encuentro con el príncipe.</div>
+      </div>
+      <div class="conf-card">
+        <div class="conf-num">03</div>
+        <div class="conf-title" data-es="Los planetas y la proyección" data-en="The Planets and Projection">Los planetas y la proyección</div>
+        <div class="conf-desc" data-es="El viaje del príncipe por los planetas: el rey, el vanidoso, el bebedor, el hombre de negocios. La psicología de la proyección y el mundo del adulto convencional." data-en="The prince's journey through the planets: the king, the conceited man, the drunkard, the businessman. The psychology of projection and the world of the conventional adult.">El viaje del príncipe por los planetas: el rey, el vanidoso, el bebedor, el hombre de negocios. La psicología de la proyección y el mundo del adulto convencional.</div>
+      </div>
+      <div class="conf-card">
+        <div class="conf-num">04</div>
+        <div class="conf-title" data-es="La rosa y el complejo materno" data-en="The Rose and the Mother Complex">La rosa y el complejo materno</div>
+        <div class="conf-desc" data-es="La rosa como símbolo del ánima-madre. La incapacidad del príncipe para comprometerse con ella. El vínculo entre el complejo materno y la dificultad de relacionarse con las mujeres." data-en="The rose as symbol of the anima-mother. The prince's inability to commit to her. The link between the mother complex and the difficulty relating to women.">La rosa como símbolo del ánima-madre. La incapacidad del príncipe para comprometerse con ella.</div>
+      </div>
+      <div class="conf-card">
+        <div class="conf-num">05</div>
+        <div class="conf-title" data-es="La serpiente y la muerte" data-en="The Serpent and Death">La serpiente y la muerte</div>
+        <div class="conf-desc" data-es="El simbolismo de la serpiente como umbral. La muerte del puer como retorno a la madre. Interpretación de la escena final del libro: voluntad de disolución vs. transformación." data-en="The symbolism of the serpent as threshold. The puer's death as return to the mother. Interpretation of the final scene: will to dissolution vs. transformation.">El simbolismo de la serpiente como umbral. La muerte del puer como retorno a la madre.</div>
+      </div>
+      <div class="conf-card">
+        <div class="conf-num">06</div>
+        <div class="conf-title" data-es="El zorro y la domesticación" data-en="The Fox and Domestication">El zorro y la domesticación</div>
+        <div class="conf-desc" data-es="El zorro como símbolo del instinto que pide ser 'domesticado', es decir, integrado. La relación y el compromiso como forma de individuación. El miedo del puer a ser definido." data-en="The fox as symbol of the instinct asking to be 'tamed', meaning integrated. Relationship and commitment as a form of individuation. The puer's fear of being defined.">El zorro como símbolo del instinto que pide ser 'domesticado'. La relación y el compromiso como forma de individuación.</div>
+      </div>
+      <div class="conf-card">
+        <div class="conf-num">07</div>
+        <div class="conf-title" data-es="El problema de la sombra" data-en="The Problem of the Shadow">El problema de la sombra</div>
+        <div class="conf-desc" data-es="La sombra del puer: la brutalidad fría que subyace al sentimentalismo. La figura de Rivière en los libros de Saint-Exupéry. Los dos tipos de sombra infantil: hacia atrás y hacia adelante." data-en="The puer's shadow: the cold brutality underlying sentimentalism. The figure of Rivière in Saint-Exupéry. The two types of child shadow: backward-pointing and forward-pointing.">La sombra del puer: la brutalidad fría que subyace al sentimentalismo. Dos tipos de sombra infantil.</div>
+      </div>
+      <div class="conf-card">
+        <div class="conf-num">08</div>
+        <div class="conf-title" data-es="Conclusión: El principito" data-en="Conclusion: The Little Prince">Conclusión: El principito</div>
+        <div class="conf-desc" data-es="Síntesis de la primera parte. El puer aeternus como problema religioso y colectivo. La conexión entre el complejo materno y la búsqueda de lo sagrado." data-en="Synthesis of the first part. The puer aeternus as a religious and collective problem. The connection between the mother complex and the search for the sacred.">Síntesis de la primera parte. El problema religioso y colectivo del puer.</div>
+      </div>
+    </div>
+
+    <div class="conf-part-label" style="margin-top:36px" data-es="Parte II — El reino sin espacio (Bruno Goetz)" data-en="Part II — The Kingdom Without Space (Bruno Goetz)">Parte II — El reino sin espacio (Bruno Goetz)</div>
+    <div class="conf-grid">
+      <div class="conf-card">
+        <div class="conf-num">09</div>
+        <div class="conf-title" data-es="El segundo caso: Bruno Goetz" data-en="The Second Case: Bruno Goetz">El segundo caso: Bruno Goetz</div>
+        <div class="conf-desc" data-es="Presentación del libro y del autor. El 'reino sin espacio' como metáfora del inconsciente. El puer desde una perspectiva más oscura y mítica." data-en="Presentation of the book and author. The 'kingdom without space' as metaphor for the unconscious. The puer from a darker, more mythic perspective.">Presentación de Goetz y su texto. El reino sin espacio como metáfora del inconsciente.</div>
+      </div>
+      <div class="conf-card">
+        <div class="conf-num">10</div>
+        <div class="conf-title" data-es="El dios oscuro y la fascinación" data-en="The Dark God and Fascination">El dios oscuro y la fascinación</div>
+        <div class="conf-desc" data-es="La figura del dios oscuro como polo opuesto al puer luminoso. La fascinación peligrosa y la inflación psíquica. El complejo materno como portal al inconsciente colectivo." data-en="The figure of the dark god as the opposite pole to the luminous puer. Dangerous fascination and psychic inflation. The mother complex as portal to the collective unconscious.">La figura del dios oscuro. Fascinación peligrosa e inflación psíquica.</div>
+      </div>
+      <div class="conf-card">
+        <div class="conf-num">11</div>
+        <div class="conf-title" data-es="El sacrificio del puer" data-en="The Sacrifice of the Puer">El sacrificio del puer</div>
+        <div class="conf-desc" data-es="El motivo mítico del sacrificio como condición para la transformación. Diferencia entre sacrificio auténtico (entrega consciente) y autodestrucción. La individuación como descenso." data-en="The mythic motif of sacrifice as condition for transformation. Difference between authentic sacrifice and self-destruction. Individuation as descent.">El sacrificio como condición para la transformación. Individuación como descenso.</div>
+      </div>
+      <div class="conf-card">
+        <div class="conf-num">12</div>
+        <div class="conf-title" data-es="Conclusión general" data-en="General Conclusion">Conclusión general</div>
+        <div class="conf-desc" data-es="Síntesis final: la cura, el senex, la función del trabajo, y el significado religioso del problema del puer en el contexto de la psicología occidental contemporánea." data-en="Final synthesis: the cure, the senex, the function of work, and the religious significance of the puer problem in the context of contemporary Western psychology.">Síntesis final: la cura, el senex, el trabajo, y el significado religioso del puer.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONCEPTS -->
+  <div class="tab-panel" id="tab-concepts">
+    <div class="section-title" data-es="Conceptos clave" data-en="Key Concepts">Conceptos clave</div>
+    <div class="section-subtitle" data-es="Vocabulario junguiano esencial para la lectura" data-en="Essential Jungian vocabulary for reading">Vocabulario junguiano esencial para la lectura</div>
+    <div class="concepts-grid">
+      <div class="concept-card">
+        <div class="concept-term">Puer Aeternus</div>
+        <div class="concept-latin">del latín: "eterno niño"</div>
+        <div class="concept-def" data-es="Arquetipo del eterno joven. Cuando domina la psique de un adulto, produce la 'vida provisional': incapacidad de comprometerse, terror a la finitud, búsqueda permanente de lo perfecto." data-en="Archetype of the eternal youth. When it dominates an adult's psyche, it produces the 'provisional life': inability to commit, terror of finitude, perpetual search for the perfect.">Arquetipo del eterno joven. Cuando domina la psique de un adulto, produce la 'vida provisional': incapacidad de comprometerse, terror a la finitud, búsqueda permanente de lo perfecto.</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-term">Senex</div>
+        <div class="concept-latin">del latín: "anciano"</div>
+        <div class="concept-def" data-es="El polo opuesto al puer: el viejo sabio, la tradición, la estructura, el tiempo. La salud psíquica requiere la integración de ambos: la vitalidad del puer y la solidez del senex." data-en="The opposite pole to the puer: the wise old man, tradition, structure, time. Psychological health requires integrating both: the vitality of the puer and the solidity of the senex.">El polo opuesto al puer: el viejo sabio, la tradición, la estructura, el tiempo. La salud psíquica requiere la integración de ambos.</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-term">Individuación</div>
+        <div class="concept-latin">proceso central de la psicología junguiana</div>
+        <div class="concept-def" data-es="El proceso de llegar a ser quien se es: integrar el inconsciente, asumir la sombra, relacionarse con el ánima/ánimus. Para el puer, implica bajar a la tierra y aceptar la encarnación." data-en="The process of becoming who one is: integrating the unconscious, taking on the shadow, relating to the anima/animus. For the puer, it means descending to earth and accepting incarnation.">El proceso de llegar a ser quien se es. Para el puer, implica bajar a la tierra y aceptar la encarnación.</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-term">Complejo materno</div>
+        <div class="concept-latin">núcleo del problema del puer</div>
+        <div class="concept-def" data-es="La libido psíquica atrapada en la imagen de la madre. Produce dependencia, incapacidad de comprometerse con mujeres reales, y una fusión con el arquetipo de la Gran Madre." data-en="Psychic libido trapped in the image of the mother. Produces dependency, inability to commit to real women, and fusion with the Great Mother archetype.">La libido psíquica atrapada en la imagen de la madre. Produce dependencia e incapacidad de comprometerse con mujeres reales.</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-term">Sombra</div>
+        <div class="concept-latin">el lado oscuro no integrado</div>
+        <div class="concept-def" data-es="Los aspectos rechazados de la personalidad. En el puer, la sombra suele ser una frialdad brutal que contrasta con el sentimentalismo consciente. Von Franz distingue sombra regresiva y progresiva." data-en="Rejected aspects of personality. In the puer, the shadow is often a brutal coldness contrasting with conscious sentimentalism. Von Franz distinguishes regressive and progressive shadow.">Los aspectos rechazados. En el puer: una frialdad brutal que contrasta con el sentimentalismo. Hay dos tipos: regresiva y progresiva.</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-term">Ánima</div>
+        <div class="concept-latin">el alma femenina interior del hombre</div>
+        <div class="concept-def" data-es="La imagen inconsciente de lo femenino en el psiquismo masculino. En el puer, el ánima está fusionada con la madre, haciendo imposible la relación real con una mujer." data-en="The unconscious image of the feminine in the male psyche. In the puer, the anima is fused with the mother, making real relationship with a woman impossible.">La imagen inconsciente de lo femenino. En el puer, el ánima está fusionada con la madre, imposibilitando la relación real.</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-term">Vida provisional</div>
+        <div class="concept-latin">término de H.G. Baynes</div>
+        <div class="concept-def" data-es="La sensación de que 'la vida real aún no ha comenzado'. El puer postergó indefinidamente el compromiso, esperando la situación perfecta. Es una forma de rechazo permanente al presente." data-en="The feeling that 'real life has not yet begun'. The puer indefinitely postpones commitment, waiting for the perfect situation. It is a permanent rejection of the present.">La sensación de que 'la vida real aún no ha comenzado'. Postergación indefinida del compromiso.</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-term">Inconsciente colectivo</div>
+        <div class="concept-latin">concepto central de Jung</div>
+        <div class="concept-def" data-es="La capa más profunda del inconsciente, compartida por toda la humanidad. Contiene los arquetipos. El puer aeternus es uno de sus habitantes universales." data-en="The deepest layer of the unconscious, shared by all humanity. It contains the archetypes. The puer aeternus is one of its universal inhabitants.">La capa más profunda del inconsciente, compartida por toda la humanidad. Contiene los arquetipos.</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-term">Sincronicidad</div>
+        <div class="concept-latin">coincidencia significativa</div>
+        <div class="concept-def" data-es="La coincidencia acausalmente significativa entre eventos internos y externos. Von Franz la usa en el trabajo analítico: los sueños del puer en momentos de resistencia suelen anunciar lo que debe hacer." data-en="The acausally meaningful coincidence between inner and outer events. Von Franz uses it in analytical work: the puer's dreams in moments of resistance often announce what must be done.">Coincidencia significativa entre eventos internos y externos. Los sueños del puer en momentos de resistencia suelen guiarlo.</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-term">Inflación psíquica</div>
+        <div class="concept-latin">identificación con el arquetipo</div>
+        <div class="concept-def" data-es="Cuando el ego se identifica con un arquetipo, 'se infla' con su energía. El puer cree ser el niño divino especial. La cura requiere desinflar esa identificación." data-en="When the ego identifies with an archetype, it 'inflates' with its energy. The puer believes he is the special divine child. The cure requires deflating that identification.">El ego identificado con un arquetipo. El puer cree ser el niño divino especial. La cura requiere desinflar esa identificación.</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-term">Proyección</div>
+        <div class="concept-latin">ver en el otro lo propio</div>
+        <div class="concept-def" data-es="Colocar inconscientemente contenidos propios en otros. El puer proyecta su ánima-madre en cada mujer, y cuando descubre que es humana, retira la proyección y se aleja." data-en="Unconsciously placing one's own contents onto others. The puer projects his anima-mother onto every woman, and when he discovers she is human, withdraws the projection and leaves.">El puer proyecta su ánima-madre en cada mujer, y cuando descubre que es humana, se aleja decepcionado.</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-term">Símbolo</div>
+        <div class="concept-latin">puente entre consciente e inconsciente</div>
+        <div class="concept-def" data-es="Para Jung, el símbolo (a diferencia del signo) es una expresión viva de algo aún desconocido. El puer aeternus vive simbólicamente: su pasión por volar es un símbolo de la huida de la tierra." data-en="For Jung, the symbol (unlike a sign) is a living expression of something still unknown. The puer lives symbolically: his passion for flying is a symbol of flight from the earth.">Expresión viva de algo aún desconocido. La pasión del puer por volar es símbolo de la huida de la tierra.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ARCHETYPES -->
+  <div class="tab-panel" id="tab-archetypes">
+    <div class="section-title" data-es="Los arquetipos centrales" data-en="The Central Archetypes">Los arquetipos centrales</div>
+    <div class="section-subtitle" data-es="Las figuras simbólicas que Von Franz analiza" data-en="The symbolic figures Von Franz analyzes">Las figuras simbólicas que Von Franz analiza</div>
+    <div class="arch-grid">
+      <div class="arch-card puer" data-symbol="☀">
+        <div class="arch-name" data-es="El Puer" data-en="The Puer">El Puer</div>
+        <div class="arch-role" data-es="El eterno joven" data-en="The eternal youth">El eterno joven</div>
+        <div class="arch-desc" data-es="Espíritu, creatividad, espontaneidad, entusiasmo, belleza. Pero también: irresponsabilidad, inconstancia, terror al compromiso. Es el arquetipo que el hombre debe integrar, no con el que debe identificarse." data-en="Spirit, creativity, spontaneity, enthusiasm, beauty. But also: irresponsibility, inconstancy, terror of commitment. It is the archetype the man must integrate, not identify with.">Espíritu, creatividad, espontaneidad, entusiasmo, belleza. Pero también: irresponsabilidad, inconstancia, terror al compromiso. Es el arquetipo que el hombre debe integrar, no con el que debe identificarse.</div>
+      </div>
+      <div class="arch-card senex" data-symbol="🜍">
+        <div class="arch-name" data-es="El Senex" data-en="The Senex">El Senex</div>
+        <div class="arch-role" data-es="El anciano, el padre, el tiempo" data-en="The old man, the father, time">El anciano, el padre, el tiempo</div>
+        <div class="arch-desc" data-es="Sabiduría, estructura, disciplina, tradición, límite. Es el polo complementario del puer. Sin el senex, el puer se vuelve caótico; sin el puer, el senex se petrifica. La madurez es su tensión integrada." data-en="Wisdom, structure, discipline, tradition, limit. The complementary pole of the puer. Without the senex, the puer becomes chaotic; without the puer, the senex petrifies. Maturity is their integrated tension.">Sabiduría, estructura, disciplina, tradición, límite. La madurez es la tensión integrada entre puer y senex.</div>
+      </div>
+      <div class="arch-card mother" data-symbol="⊕">
+        <div class="arch-name" data-es="La Gran Madre" data-en="The Great Mother">La Gran Madre</div>
+        <div class="arch-role" data-es="El origen y el abismo" data-en="The origin and the abyss">El origen y el abismo</div>
+        <div class="arch-desc" data-es="Fuente de vida y de retorno. Nutre y devora. El puer vive atrapado en su polo negativo: la madre que retiene, que envuelve, que impide la separación. La cura implica separarse de este arquetipo." data-en="Source of life and of return. Nourishes and devours. The puer lives trapped in its negative pole: the mother who retains, who envelops, who prevents separation. The cure involves separating from this archetype.">Fuente de vida y de retorno. Nutre y devora. El puer está atrapado en su polo negativo. La cura implica separarse de este arquetipo.</div>
+      </div>
+      <div class="arch-card child" data-symbol="✦">
+        <div class="arch-name" data-es="El Niño Divino" data-en="The Divine Child">El Niño Divino</div>
+        <div class="arch-role" data-es="Renovación, posibilidad, futuro" data-en="Renewal, possibility, future">Renovación, posibilidad, futuro</div>
+        <div class="arch-desc" data-es="Símbolo de lo nuevo que quiere nacer en la psique. Positivamente: creatividad genuina, apertura espiritual. Peligrosamente: si el ego se identifica con él, el hombre cree ser el mesías." data-en="Symbol of the new that wants to be born in the psyche. Positively: genuine creativity, spiritual openness. Dangerously: if the ego identifies with it, the man believes he is the messiah.">Símbolo de lo nuevo que quiere nacer. Positivo: creatividad genuina. Peligroso: la identificación mesíanica.</div>
+      </div>
+      <div class="arch-card shadow" data-symbol="◐">
+        <div class="arch-name" data-es="La Sombra del Puer" data-en="The Puer's Shadow">La Sombra del Puer</div>
+        <div class="arch-role" data-es="La frialdad oculta bajo el encanto" data-en="The coldness hidden beneath the charm">La frialdad oculta bajo el encanto</div>
+        <div class="arch-desc" data-es="Donde hay sentimentalismo, suele haber brutalidad. La sombra del puer es fría, brutal, usa a los demás. Von Franz la ve en Rivière, en el tipo donjuán, en la manera en que abandona a las mujeres sin sentir." data-en="Where there is sentimentalism, there is usually brutality. The puer's shadow is cold, brutal, uses others. Von Franz sees it in Rivière, in the Don Juan type, in the way he abandons women without feeling.">Donde hay sentimentalismo, suele haber brutalidad. Von Franz la ve en Rivière y en el tipo donjuán: fría, usa a los demás, abandona sin sentir.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- THEMES -->
+  <div class="tab-panel" id="tab-themes">
+    <div class="section-title" data-es="Temas transversales" data-en="Cross-cutting Themes">Temas transversales</div>
+    <div class="section-subtitle" data-es="Ideas que recorren todo el libro" data-en="Ideas that run throughout the book">Ideas que recorren todo el libro</div>
+    <div class="themes-list">
+      <div class="theme-row">
+        <div class="theme-icon">⚒</div>
+        <div>
+          <div class="theme-name" data-es="El trabajo como cura" data-en="Work as the Cure">El trabajo como cura</div>
+          <div class="theme-desc" data-es="Jung dudó al decirlo, pero llegó a la misma conclusión: si un hombre puede liberarse de esta neurosis, es mediante el trabajo. No trabajo en general —el puer puede trabajar 24 horas cuando está entusiasmado— sino trabajo en la mañana lluviosa y aburrida, cuando hay que obligarse. Ese momento de resistencia es exactamente donde reside la cura." data-en="Jung hesitated to say it, but reached the same conclusion: if a man can free himself from this neurosis, it is through work. Not work in general — the puer can work 24 hours when enthusiastic — but work on the rainy, boring morning when one must force oneself. That moment of resistance is exactly where the cure lies.">Jung dudó al decirlo, pero llegó a la misma conclusión: si un hombre puede liberarse de esta neurosis, es mediante el trabajo. No trabajo en general —el puer puede trabajar 24 horas cuando está entusiasmado— sino trabajo en la mañana lluviosa y aburrida, cuando hay que obligarse.</div>
+        </div>
+      </div>
+      <div class="theme-row">
+        <div class="theme-icon">🌱</div>
+        <div>
+          <div class="theme-name" data-es="La encarnación: bajar a la tierra" data-en="Incarnation: Descending to Earth">La encarnación: bajar a la tierra</div>
+          <div class="theme-desc" data-es="El terror del puer es ser definido: ser este hombre específico, en este lugar, en este tiempo, mortal, limitado, comprometido. La sanación es exactamente eso: tolerar la finitud, elegir lo finito sobre la suspensión infinita de 'mi vida real comenzará después'." data-en="The puer's terror is being defined: being this specific man, in this place, in this time, mortal, limited, committed. Healing is exactly that: tolerating finitude, choosing the finite over the infinite suspension of 'my real life will start later'.">El terror del puer es ser definido, ser este hombre específico, en este lugar, en este tiempo. La sanación es tolerar la finitud.</div>
+        </div>
+      </div>
+      <div class="theme-row">
+        <div class="theme-icon">🔮</div>
+        <div>
+          <div class="theme-name" data-es="La mitología como psicología profunda" data-en="Mythology as Depth Psychology">La mitología como psicología profunda</div>
+          <div class="theme-desc" data-es="Von Franz usa El principito y El reino sin espacio como textos sagrados del inconsciente colectivo: no como entretenimiento, sino como documentos del alma. La literatura que toca a millones de personas lo hace porque expresa algo verdadero del inconsciente colectivo." data-en="Von Franz uses The Little Prince and The Kingdom Without Space as sacred texts of the collective unconscious: not as entertainment, but as documents of the soul. Literature that touches millions does so because it expresses something true about the collective unconscious.">Von Franz usa la literatura como documento del inconsciente colectivo. Lo que toca a millones expresa algo verdadero del alma colectiva.</div>
+        </div>
+      </div>
+      <div class="theme-row">
+        <div class="theme-icon">⚖</div>
+        <div>
+          <div class="theme-name" data-es="El padre negativo y la madre positiva" data-en="The Negative Father and Positive Mother">El padre negativo y la madre positiva</div>
+          <div class="theme-desc" data-es="En el fondo del complejo materno suele haber un padre ausente, débil o negativo. La madre compensa sobreprotegiendo. El niño queda atrapado entre un padre que no puede seguir y una madre que no quiere soltar." data-en="At the root of the mother complex there is usually an absent, weak, or negative father. The mother compensates by overprotecting. The child is trapped between a father he cannot follow and a mother who will not let go.">En el fondo del complejo materno suele haber un padre ausente o débil. El niño queda atrapado entre un padre que no puede seguir y una madre que no quiere soltar.</div>
+        </div>
+      </div>
+      <div class="theme-row">
+        <div class="theme-icon">🕊</div>
+        <div>
+          <div class="theme-name" data-es="El problema religioso de la modernidad" data-en="The Religious Problem of Modernity">El problema religioso de la modernidad</div>
+          <div class="theme-desc" data-es="Von Franz conecta el aumento del complejo puer con la crisis religiosa occidental. En culturas con ritos de iniciación vivos, el tránsito de niño a hombre era sostenido por la colectividad. Sin esos ritos, el hombre moderno queda abandonado en el umbral." data-en="Von Franz connects the increase of the puer complex with the Western religious crisis. In cultures with living initiation rites, the transition from boy to man was supported by the collective. Without those rites, the modern man is left abandoned on the threshold.">El aumento del puer está ligado a la crisis religiosa. Sin ritos de iniciación, el hombre moderno queda abandonado en el umbral del tránsito.</div>
+        </div>
+      </div>
+      <div class="theme-row">
+        <div class="theme-icon">◐</div>
+        <div>
+          <div class="theme-name" data-es="Sentimentalismo y brutalidad: las dos caras" data-en="Sentimentalism and Brutality: Two Faces">Sentimentalismo y brutalidad: las dos caras</div>
+          <div class="theme-desc" data-es="Donde hay sentimentalismo, suele haber brutalidad. La sombra del puer es exactamente aquello que su conciencia romántica rechaza: frialdad, uso de los otros, abandono sin sentimiento. Von Franz usa el ejemplo de Goering: firmaba sentencias de muerte sin dudar, pero lloraba si se moría uno de sus pájaros." data-en="Where there is sentimentalism, there is usually brutality. The puer's shadow is exactly what his romantic consciousness rejects: coldness, using others, abandonment without feeling. Von Franz uses the example of Goering: he signed death sentences without hesitation, but wept if one of his birds died.">Donde hay sentimentalismo, suele haber brutalidad. Von Franz: Goering firmaba sentencias de muerte sin dudar, pero lloraba si se moría uno de sus pájaros.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HEALING -->
+  <div class="tab-panel" id="tab-healing">
+    <div class="healing-hero">
+      <h2 data-es="¿Cómo se sana el puer aeternus?" data-en="How Does the Puer Aeternus Heal?">¿Cómo se sana el puer aeternus?</h2>
+      <p data-es="Von Franz es directa y específica. La cura tiene un nombre: trabajo. Pero no cualquier trabajo — sino trabajo en el momento de mayor resistencia. Esta sección recoge todas sus prescripciones directas, extraídas de los textos de las conferencias." data-en="Von Franz is direct and specific. The cure has one name: work. But not any work — work in the moment of greatest resistance. This section gathers all her direct prescriptions, drawn from the lecture texts.">Von Franz es directa y específica. La cura tiene un nombre: trabajo. Pero no cualquier trabajo — sino trabajo en el momento de mayor resistencia. Esta sección recoge todas sus prescripciones directas, extraídas de los textos de las conferencias.</p>
+    </div>
+
+    <div class="healing-steps">
+      <div class="healing-step">
+        <div class="step-indicator"><div class="step-dot">1</div></div>
+        <div class="step-body">
+          <div class="step-title" data-es="Comprometerse con algo — lo que sea — en serio" data-en="Commit to Something — Anything — Seriously">Comprometerse con algo — lo que sea — en serio</div>
+          <div class="step-desc" data-es="Sea el análisis (tomar los sueños en serio, vivir según ellos) o la vida exterior (un trabajo, un oficio), lo crítico es hacerlo conscientemente. El mayor peligro del puer no es lo que hace, sino su patrón de abandonar en el momento en que las cosas se ponen difíciles. La cura no es encontrar el camino perfecto — es no abandonar el camino cuando se vuelve difícil." data-en="Whether analysis (taking dreams seriously, living by them) or outer life (a job, a craft), the critical thing is doing it consciously. The puer's greatest danger is not what he does, but his pattern of switching off the moment things get hard. The cure isn't about finding the perfect path — it's about not abandoning the path when it becomes difficult.">Sea el análisis (tomar los sueños en serio, vivir según ellos) o la vida exterior (un trabajo, un oficio), lo crítico es hacerlo conscientemente. El mayor peligro del puer no es lo que hace, sino su patrón de abandonar en el momento en que las cosas se ponen difíciles. La cura no es encontrar el camino perfecto — es no abandonar el camino cuando se vuelve difícil.</div>
+          <div class="step-quote" data-es="«El puer aeternus puede trabajar cuando está fascinado. Lo que no puede hacer es trabajar en una mañana lluviosa y deprimente, cuando el trabajo es aburrido y hay que obligarse. Ahí es exactamente donde reside la cura.»" data-en="«The puer aeternus can work when fascinated. What he cannot do is work on a rainy, depressing morning, when the work is boring and must be forced. That is exactly where the cure lies.»">«El puer aeternus puede trabajar cuando está fascinado. Lo que no puede hacer es trabajar en una mañana lluviosa y deprimente, cuando el trabajo es aburrido y hay que obligarse. Ahí es exactamente donde reside la cura.»</div>
+        </div>
+      </div>
+
+      <div class="healing-step">
+        <div class="step-indicator"><div class="step-dot">2</div></div>
+        <div class="step-body">
+          <div class="step-title" data-es="Seguir el flujo natural de energía, luego atravesar la parte aburrida" data-en="Follow the Natural Flow of Energy, Then Push Through the Boring Part">Seguir el flujo natural de energía, luego atravesar la parte aburrida</div>
+          <div class="step-desc" data-es="Von Franz aconseja a los analistas no sermonear al puer sobre el trabajo (sólo se enfadará y se irá). En cambio: esperar, dejar que el inconsciente muestre dónde fluye naturalmente la energía psicológica, y dirigirle allí. Pero en cualquier campo de trabajo llega un momento de rutina. El trabajo creativo también. Esa parte aburrida y obligatoria es donde el puer siempre escapa — y donde debe aprender a quedarse." data-en="Von Franz advises analysts not to lecture the puer about working (he'll just get annoyed and leave). Instead: wait — let the unconscious show where psychological energy flows naturally, and direct him there. But every field eventually reaches its routine. Creative work included. That dull, obligatory part is where the puer always escapes — and where he must learn to stay.">Von Franz aconseja a los analistas no sermonear al puer sobre el trabajo. En cambio: esperar, dejar que el inconsciente muestre dónde fluye naturalmente la energía psicológica, y dirigirle allí. Pero en cualquier campo llega un momento de rutina — y ahí es donde el puer siempre escapa.</div>
+        </div>
+      </div>
+
+      <div class="healing-step">
+        <div class="step-indicator"><div class="step-dot">3</div></div>
+        <div class="step-body">
+          <div class="step-title" data-es="Dejar que el inconsciente guíe a través de los sueños" data-en="Let the Unconscious Guide Through Dreams">Dejar que el inconsciente guíe a través de los sueños</div>
+          <div class="step-desc" data-es="En los momentos de mayor resistencia, Von Franz dice que el inconsciente suele enviar sueños que muestran que la persona debería empujar para superar el obstáculo — y que si lo logra, habrá ganado algo. Prestar atención a esos sueños. Vivir según ellos. El análisis junguiano usa los sueños como brújula, no sólo como material para interpretar." data-en="In moments of hardest resistance, Von Franz says the unconscious usually sends dreams showing that the person should push through — and that if they do, they'll have won something. Pay attention to those dreams. Live in accordance with them. Jungian analysis uses dreams as a compass, not just as material to interpret.">En los momentos de mayor resistencia, el inconsciente suele enviar sueños que muestran que uno debería empujar para superar el obstáculo. Prestar atención a esos sueños. Vivir según ellos.</div>
+          <div class="step-quote" data-es="«Si el inconsciente le apoya, suele haber sueños que muestran que uno debería empujar para superar el obstáculo y que, si lo consigue, habrá ganado la batalla.»" data-en="«If the unconscious supports you, there are usually dreams showing that you should push through the obstacle and that, if you do, you will have won the battle.»">«Si el inconsciente le apoya, suele haber sueños que muestran que uno debería empujar para superar el obstáculo y que, si lo consigue, habrá ganado la batalla.»</div>
+        </div>
+      </div>
+
+      <div class="healing-step">
+        <div class="step-indicator"><div class="step-dot">4</div></div>
+        <div class="step-body">
+          <div class="step-title" data-es="Fortalecer el ego — sin forzarlo" data-en="Strengthen the Ego — Without Forcing It">Fortalecer el ego — sin forzarlo</div>
+          <div class="step-desc" data-es="Sólo cuando el ego ha sido suficientemente reforzado a través del análisis puede la persona volverse regular en el esfuerzo y el trabajo. Hay una secuencia interna: el análisis llega primero, el ego se fortalece, luego el trabajo constante se vuelve posible. No se puede saltar al final. No hay atajos que eviten el proceso analítico." data-en="Only when the ego has been sufficiently reinforced through analysis can the person become regular in effort and work. There's an internal sequence: the analysis comes first, the ego strengthens, then consistent work becomes possible. You can't shortcut to the end. There are no shortcuts that bypass the analytical process.">Sólo cuando el ego ha sido suficientemente reforzado a través del análisis puede la persona volverse regular en el esfuerzo. Hay una secuencia interna que no se puede saltear: el análisis primero, el ego se fortalece, luego el trabajo constante se vuelve posible.</div>
+        </div>
+      </div>
+
+      <div class="healing-step">
+        <div class="step-indicator"><div class="step-dot">5</div></div>
+        <div class="step-body">
+          <div class="step-title" data-es="Confrontar la sombra — pero distinguir cuál sombra" data-en="Confront the Shadow — But Distinguish Which Shadow">Confrontar la sombra — pero distinguir cuál sombra</div>
+          <div class="step-desc" data-es="Von Franz hace una distinción sutil e importante: el arquetipo del niño aparece tanto detrás (la sombra infantil — pereza, dependencia, evasión) como adelante (el niño creativo — renovación, espontaneidad, vida nueva). La tarea es el discernimiento: algunos impulsos que se sienten infantiles en realidad apuntan hacia adelante y deben ser vividos; otros tiran hacia atrás y deben ser cortados. Los sueños son la principal herramienta para distinguirlos." data-en="Von Franz makes a subtle and important distinction: the child archetype appears both behind (the infantile shadow — laziness, dependence, evasion) and ahead (the creative child — renewal, spontaneity, new life). The task is discernment: some impulses that feel childish actually point forward and should be lived; others pull backward and must be cut. Dreams are the main tool for telling them apart.">Von Franz distingue dos tipos de sombra infantil: la que tira hacia atrás (pereza, dependencia, evasión) y la que apunta hacia adelante (creatividad genuina, renovación). Los sueños son la principal herramienta para distinguirlas.</div>
+          <div class="step-quote" data-es="«El arquetipo del niño puede ser la sombra regresiva hacia el pasado, o puede ser el niño creativo apuntando hacia el futuro. El discernimiento es el trabajo esencial.»" data-en="«The child archetype can be the regressive shadow toward the past, or it can be the creative child pointing toward the future. Discernment is the essential work.»">«El arquetipo del niño puede ser la sombra regresiva hacia el pasado, o puede ser el niño creativo apuntando hacia el futuro. El discernimiento es el trabajo esencial.»</div>
+        </div>
+      </div>
+
+      <div class="healing-step">
+        <div class="step-indicator"><div class="step-dot">6</div></div>
+        <div class="step-body">
+          <div class="step-title" data-es="No sólo entenderlo — hacer algo con ello" data-en="Not Just Understand It — Do Something With It">No sólo entenderlo — hacer algo con ello</div>
+          <div class="step-desc" data-es="Esta es la crítica más aguda de Von Franz al análisis puramente reductivo. Cuenta la historia de un hombre que hizo análisis freudiano, 'curó' su complejo, pero dijo amargamente: 'me quitaron mis demonios, pero también mis ángeles'. La comprensión intelectual sin cambio en cómo se vive no es sanación. El puer es especialmente bueno entendiendo todo en el cielo — integrando en teoría — mientras nada cambia en tierra. El trabajo del analista, dice Von Franz sin rodeos, es ser como un perro guardián y verificar si el hombre está realmente levantándose y viviendo de forma diferente." data-en="This is Von Franz's sharpest critique of purely reductive analysis. She tells the story of a man who did Freudian analysis, 'cured' his complex, but said bitterly: 'they took away my demons, but also my angels'. Intellectual understanding without change in how you live is not healing. The puer is especially good at understanding everything in the sky — integrating it in theory — while nothing changes on the ground. The analyst's job, she says bluntly, is to be like a watchdog and check whether the man is actually getting up and living differently.">Von Franz critica el análisis puramente intelectual: un hombre que lo hizo dijo amargamente "me quitaron mis demonios, pero también mis ángeles". La comprensión sin cambio no es sanación. El analista debe verificar si el hombre está viviendo de forma diferente.</div>
+        </div>
+      </div>
+
+      <div class="healing-step">
+        <div class="step-indicator"><div class="step-dot">7</div></div>
+        <div class="step-body">
+          <div class="step-title" data-es="Aceptar el peso de la encarnación" data-en="Accept the Weight of Incarnation">Aceptar el peso de la encarnación</div>
+          <div class="step-desc" data-es="La prescripción más profunda es metafísica: el puer debe aceptar ser esta persona específica, en este lugar y tiempo específicos, limitado, mortal, comprometido. El terror del puer es ser definido, fijado, entrar completamente en el tiempo y el espacio y ser el ser humano singular que cada uno es. Sanar significa tolerar exactamente eso — elegir lo finito sobre la suspensión infinita de 'mi vida real comenzará después'." data-en="The deepest prescription is metaphysical: the puer must accept being this specific person, in this specific place and time, limited, mortal, committed. The puer's terror is being defined, fixed, entering completely into time and space and being the singular human being that each one is. Healing means tolerating exactly that — choosing the finite over the infinite suspension of 'my real life will begin later'.">La prescripción más profunda: el puer debe aceptar ser esta persona específica, en este lugar y tiempo específicos, limitado, mortal, comprometido. Sanar significa elegir lo finito sobre la suspensión infinita de 'mi vida real comenzará después'.</div>
+          <div class="step-quote" data-es="«Los dones creativos del puer no desaparecen — sólo se vuelven reales cuando se les da un cuerpo.»" data-en="«The creative gifts of the puer don't disappear — they only become real when they are given a body.»">«Los dones creativos del puer no desaparecen — sólo se vuelven reales cuando se les da un cuerpo.»</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="healing-insight">
+      <h3 data-es="La nota honesta de Von Franz" data-en="Von Franz's Honest Note">La nota honesta de Von Franz</h3>
+      <p data-es="El libro no ofrece una lista de verificación ni una técnica. Von Franz es honesta en que cada caso es diferente, y que predicarle al puer nunca funciona. Pero la dirección es inequívoca: hacia abajo, hacia la tierra, hacia lo ordinario, hacia lo comprometido. Las cualidades positivas del puer — su espiritualidad, su contacto con el inconsciente, su chispa — no se pierden en la individuación. Se vuelven reales sólo cuando se les da un cuerpo." data-en="The book doesn't offer a checklist or a technique. Von Franz is honest that each case is different, and that preaching at the puer never works. But the direction is unmistakable: downward, into the earth, into the ordinary, into the committed. The positive qualities of the puer — his spirituality, his contact with the unconscious, his spark — are not lost in individuation. They become real only when given a body.">El libro no ofrece una lista de verificación ni una técnica. Von Franz es honesta en que cada caso es diferente, y que predicarle al puer nunca funciona. Pero la dirección es inequívoca: hacia abajo, hacia la tierra, hacia lo ordinario, hacia lo comprometido. Las cualidades positivas del puer — su espiritualidad, su contacto con el inconsciente, su chispa — no se pierden en la individuación. Se vuelven reales sólo cuando se les da un cuerpo.</p>
+    </div>
+  </div>
+
+  <!-- QUIZ -->
+  <div class="tab-panel" id="tab-quiz">
+    <div class="section-title" data-es="Quiz de comprensión" data-en="Comprehension Quiz">Quiz de comprensión</div>
+    <div class="section-subtitle" data-es="7 preguntas sobre los conceptos centrales del libro" data-en="7 questions on the book's central concepts">7 preguntas sobre los conceptos centrales del libro</div>
+
+    <div class="quiz-score" id="quiz-score" style="display:none">
+      <div class="score-num" id="score-display">0/7</div>
+      <div class="score-label" data-es="respuestas correctas" data-en="correct answers">respuestas correctas</div>
+    </div>
+
+    <div class="quiz-question" data-correct="1">
+      <div class="quiz-q" data-es="1. Según Von Franz, ¿cuál es la principal cura para el puer aeternus?" data-en="1. According to Von Franz, what is the main cure for the puer aeternus?">1. Según Von Franz, ¿cuál es la principal cura para el puer aeternus?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="answer(this,0)" data-es="Terapia de grupo y apoyo social" data-en="Group therapy and social support">Terapia de grupo y apoyo social</button>
+        <button class="quiz-opt" onclick="answer(this,1)" data-es="El trabajo, especialmente en momentos de aburrimiento y resistencia" data-en="Work, especially in moments of boredom and resistance">El trabajo, especialmente en momentos de aburrimiento y resistencia</button>
+        <button class="quiz-opt" onclick="answer(this,0)" data-es="La separación total de la madre" data-en="Complete separation from the mother">La separación total de la madre</button>
+        <button class="quiz-opt" onclick="answer(this,0)" data-es="El amor romántico de la pareja adecuada" data-en="The romantic love of the right partner">El amor romántico de la pareja adecuada</button>
+      </div>
+      <div class="quiz-explanation" data-es="Correcto. Von Franz cita a Jung: el trabajo es la respuesta. Pero no el trabajo en general — sino trabajo en la mañana lluviosa y aburrida, cuando hay que obligarse. Es exactamente ahí donde reside la cura." data-en="Correct. Von Franz cites Jung: work is the answer. But not work in general — but work on the rainy, boring morning when one must force oneself. That is exactly where the cure lies.">Correcto. Von Franz cita a Jung: el trabajo es la respuesta. Pero no el trabajo en general — sino trabajo en la mañana lluviosa y aburrida, cuando hay que obligarse.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="2">
+      <div class="quiz-q" data-es="2. ¿Qué es la 'vida provisional' según H.G. Baynes?" data-en="2. What is the 'provisional life' according to H.G. Baynes?">2. ¿Qué es la 'vida provisional' según H.G. Baynes?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="answer(this,0)" data-es="Una vida sencilla y sin ambiciones materiales" data-en="A simple life without material ambitions">Una vida sencilla y sin ambiciones materiales</button>
+        <button class="quiz-opt" onclick="answer(this,0)" data-es="La etapa del análisis antes de la individuación" data-en="The stage of analysis before individuation">La etapa del análisis antes de la individuación</button>
+        <button class="quiz-opt" onclick="answer(this,1)" data-es="La sensación de que 'la vida real aún no ha comenzado', postergando el compromiso indefinidamente" data-en="The feeling that 'real life has not yet begun', indefinitely postponing commitment">La sensación de que 'la vida real aún no ha comenzado', postergando el compromiso indefinidamente</button>
+        <button class="quiz-opt" onclick="answer(this,0)" data-es="Una etapa normal de la adolescencia" data-en="A normal stage of adolescence">Una etapa normal de la adolescencia</button>
+      </div>
+      <div class="quiz-explanation" data-es="Exacto. El puer vive en una expectativa permanente de una vida futura más real. Siempre hay un 'pero' que impide el matrimonio, el compromiso definitivo, cualquier cosa que lo defina." data-en="Exactly. The puer lives in permanent expectation of a more real future life. There is always a 'but' that prevents marriage, definitive commitment, anything that would define him.">Exacto. El puer vive en una expectativa permanente de una vida futura más real. Siempre hay un 'pero' que impide el compromiso definitivo.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="0">
+      <div class="quiz-q" data-es="3. ¿Qué dos libros analiza Von Franz como documentos del inconsciente colectivo?" data-en="3. What two books does Von Franz analyze as documents of the collective unconscious?">3. ¿Qué dos libros analiza Von Franz como documentos del inconsciente colectivo?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="answer(this,1)" data-es="El principito (Saint-Exupéry) y El reino sin espacio (Bruno Goetz)" data-en="The Little Prince (Saint-Exupéry) and The Kingdom Without Space (Bruno Goetz)">El principito (Saint-Exupéry) y El reino sin espacio (Bruno Goetz)</button>
+        <button class="quiz-opt" onclick="answer(this,0)" data-es="El lobo estepario (Hesse) y El proceso (Kafka)" data-en="Steppenwolf (Hesse) and The Trial (Kafka)">El lobo estepario (Hesse) y El proceso (Kafka)</button>
+        <button class="quiz-opt" onclick="answer(this,0)" data-es="Demian (Hesse) y El principito (Saint-Exupéry)" data-en="Demian (Hesse) and The Little Prince (Saint-Exupéry)">Demian (Hesse) y El principito (Saint-Exupéry)</button>
+        <button class="quiz-opt" onclick="answer(this,0)" data-es="Peter Pan y El Principito" data-en="Peter Pan and The Little Prince">Peter Pan y El Principito</button>
+      </div>
+      <div class="quiz-explanation" data-es="Correcto. Las conferencias 1–8 analizan El principito de Saint-Exupéry (él mismo un puer aeternus clásico). Las conferencias 9–12 analizan El reino sin espacio de Bruno Goetz." data-en="Correct. Lectures 1–8 analyze The Little Prince by Saint-Exupéry (himself a classic puer aeternus). Lectures 9–12 analyze The Kingdom Without Space by Bruno Goetz.">Correcto. Las conferencias 1–8 analizan El principito. Las conferencias 9–12 analizan El reino sin espacio de Bruno Goetz.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="3">
+      <div class="quiz-q" data-es="4. ¿Cuál es la sombra característica del puer aeternus?" data-en="4. What is the characteristic shadow of the puer aeternus?">4. ¿Cuál es la sombra característica del puer aeternus?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="answer(this,0)" data-es="La depresión profunda y la melancolía crónica" data-en="Deep depression and chronic melancholy">La depresión profunda y la melancolía crónica</button>
+        <button class="quiz-opt" onclick="answer(this,0)" data-es="La codicia y el materialismo excesivo" data-en="Greed and excessive materialism">La codicia y el materialismo excesivo</button>
+        <button class="quiz-opt" onclick="answer(this,0)" data-es="La rigidez y el perfeccionismo" data-en="Rigidity and perfectionism">La rigidez y el perfeccionismo</button>
+        <button class="quiz-opt" onclick="answer(this,1)" data-es="Una frialdad brutal que se oculta detrás del sentimentalismo consciente" data-en="A brutal coldness hidden behind conscious sentimentalism">Una frialdad brutal que se oculta detrás del sentimentalismo consciente</button>
+      </div>
+      <div class="quiz-explanation" data-es="Exacto. Von Franz usa el ejemplo de Goering: podía firmar sentencias de muerte sin dudar, pero lloraba si se moría uno de sus pájaros. La frialdad y la brutalidad son la sombra que el puer no puede ver en sí mismo." data-en="Exactly. Von Franz uses the example of Goering: he could sign death sentences without hesitation, but wept if one of his birds died. Coldness and brutality are the shadow the puer cannot see in himself.">Exacto. Von Franz usa el ejemplo de Goering: podía firmar sentencias de muerte, pero lloraba si se moría uno de sus pájaros. La sombra es la frialdad oculta.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="1">
+      <div class="quiz-q" data-es="5. ¿Qué distingue al senex del puer en la psicología junguiana?" data-en="5. What distinguishes the senex from the puer in Jungian psychology?">5. ¿Qué distingue al senex del puer en la psicología junguiana?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="answer(this,0)" data-es="El senex es el arquetipo del padre negativo y dominante" data-en="The senex is the archetype of the negative and dominating father">El senex es el arquetipo del padre negativo y dominante</button>
+        <button class="quiz-opt" onclick="answer(this,1)" data-es="El senex representa estructura, sabiduría y límite; el puer representa vitalidad y espíritu. La madurez integra ambos." data-en="The senex represents structure, wisdom and limit; the puer represents vitality and spirit. Maturity integrates both.">El senex representa estructura, sabiduría y límite; el puer representa vitalidad y espíritu. La madurez integra ambos.</button>
+        <button class="quiz-opt" onclick="answer(this,0)" data-es="El senex es la versión sanada del puer" data-en="The senex is the healed version of the puer">El senex es la versión sanada del puer</button>
+        <button class="quiz-opt" onclick="answer(this,0)" data-es="El senex aparece sólo en hombres mayores de 50 años" data-en="The senex only appears in men over 50 years old">El senex aparece sólo en hombres mayores de 50 años</button>
+      </div>
+      <div class="quiz-explanation" data-es="Correcto. Son polos complementarios del mismo eje. Sin el senex, el puer se vuelve caótico. Sin el puer, el senex se petrifica. La madurez psicológica no elige uno — integra la tensión entre los dos." data-en="Correct. They are complementary poles of the same axis. Without the senex, the puer becomes chaotic. Without the puer, the senex petrifies. Psychological maturity doesn't choose one — it integrates the tension between the two.">Correcto. Son polos complementarios. Sin el senex el puer se vuelve caótico; sin el puer el senex se petrifica. La madurez integra ambos.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="2">
+      <div class="quiz-q" data-es="6. ¿Por qué Von Franz conecta el puer aeternus con una crisis religiosa?" data-en="6. Why does Von Franz connect the puer aeternus to a religious crisis?">6. ¿Por qué Von Franz conecta el puer aeternus con una crisis religiosa?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="answer(this,0)" data-es="Porque el puer suele convertirse al misticismo o al esoterismo" data-en="Because the puer usually converts to mysticism or esotericism">Porque el puer suele convertirse al misticismo o al esoterismo</button>
+        <button class="quiz-opt" onclick="answer(this,0)" data-es="Porque el complejo materno es especialmente frecuente en familias religiosas" data-en="Because the mother complex is especially common in religious families">Porque el complejo materno es especialmente frecuente en familias religiosas</button>
+        <button class="quiz-opt" onclick="answer(this,1)" data-es="Porque los ritos de iniciación masculinos, que antes sostenían el tránsito de niño a hombre, se han perdido en la modernidad occidental" data-en="Because masculine initiation rites, which once supported the transition from boy to man, have been lost in Western modernity">Porque los ritos de iniciación masculinos, que antes sostenían el tránsito de niño a hombre, se han perdido en la modernidad occidental</button>
+        <button class="quiz-opt" onclick="answer(this,0)" data-es="Porque Jung fue teólogo antes de ser psicólogo" data-en="Because Jung was a theologian before being a psychologist">Porque Jung fue teólogo antes de ser psicólogo</button>
+      </div>
+      <div class="quiz-explanation" data-es="Correcto. En culturas con ritos de iniciación vivos, el tránsito de niño a hombre era sostenido por la colectividad. Sin esos ritos, el hombre moderno queda abandonado en el umbral." data-en="Correct. In cultures with living initiation rites, the transition from boy to man was supported by the collective. Without those rites, the modern man is left abandoned on the threshold.">Correcto. Los ritos de iniciación sostenían el tránsito. Sin ellos, el hombre moderno queda abandonado en el umbral.</div>
+    </div>
+
+    <div class="quiz-question" data-correct="0">
+      <div class="quiz-q" data-es="7. Según Von Franz, ¿qué sucede con los dones creativos del puer si logra individuarse?" data-en="7. According to Von Franz, what happens to the puer's creative gifts if he achieves individuation?">7. Según Von Franz, ¿qué sucede con los dones creativos del puer si logra individuarse?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="answer(this,1)" data-es="No desaparecen — se vuelven reales cuando se les da un cuerpo" data-en="They don't disappear — they become real when given a body">No desaparecen — se vuelven reales cuando se les da un cuerpo</button>
+        <button class="quiz-opt" onclick="answer(this,0)" data-es="Se pierden inevitablemente al aceptar la vida ordinaria" data-en="They are inevitably lost when accepting ordinary life">Se pierden inevitablemente al aceptar la vida ordinaria</button>
+        <button class="quiz-opt" onclick="answer(this,0)" data-es="Se transforman en sabiduría del senex" data-en="They transform into the wisdom of the senex">Se transforman en sabiduría del senex</button>
+        <button class="quiz-opt" onclick="answer(this,0)" data-es="Sólo se conservan si el hombre continúa en análisis indefinidamente" data-en="They are only preserved if the man continues in analysis indefinitely">Sólo se conservan si el hombre continúa en análisis indefinidamente</button>
+      </div>
+      <div class="quiz-explanation" data-es="Exacto. La individuación no destruye los dones del puer — su espiritualidad, su encanto, su contacto con el inconsciente. Los hace reales al darles encarnación. Esa es la promesa implícita del libro." data-en="Exactly. Individuation does not destroy the puer's gifts — his spirituality, his charm, his contact with the unconscious. It makes them real by giving them incarnation. That is the book's implicit promise.">Exacto. La individuación no destruye los dones. Los hace reales al darles encarnación. Esa es la promesa implícita del libro.</div>
+    </div>
+  </div>
+
+  <!-- QUESTIONNAIRE -->
+  <div class="tab-panel" id="tab-test">
+    <div class="q-intro" id="q-intro">
+      <h2 data-es="¿Con qué arquetipo te identificas?" data-en="Which archetype resonates with you?">¿Con qué arquetipo te identificas?</h2>
+      <p data-es="Este cuestionario de 12 preguntas explora cómo se manifiestan los arquetipos de Von Franz en tu vida. No hay respuestas correctas ni incorrectas — sólo patrones. Al final, descubrirás cuál predomina en ti y recibirás un camino de sanación personalizado según la obra de Von Franz." data-en="This 12-question questionnaire explores how Von Franz's archetypes manifest in your life. There are no right or wrong answers — only patterns. At the end, you'll discover which predominates in you and receive a personalized healing path drawn from Von Franz's work.">Este cuestionario de 12 preguntas explora cómo se manifiestan los arquetipos de Von Franz en tu vida. No hay respuestas correctas ni incorrectas — sólo patrones. Al final, descubrirás cuál predomina en ti y recibirás un camino de sanación personalizado según la obra de Von Franz.</p>
+      <button class="q-start-btn" onclick="startQ()" data-es="Comenzar" data-en="Begin">Comenzar</button>
+    </div>
+    <div id="q-flow">
+      <div class="q-progress-bar"><div class="q-progress-fill" id="q-prog"></div></div>
+      <div class="q-question-num" id="q-num"></div>
+      <div class="q-question-text" id="q-text"></div>
+      <div class="q-options" id="q-opts"></div>
+    </div>
+    <div id="q-result">
+      <div class="result-header" id="res-header">
+        <span class="result-symbol" id="res-symbol"></span>
+        <div class="result-label" id="res-label"></div>
+        <div class="result-name" id="res-name"></div>
+        <div class="result-tagline" id="res-tagline"></div>
+      </div>
+      <div class="result-scores" id="res-scores"></div>
+      <div class="result-section">
+        <h3 id="res-desc-title"></h3>
+        <div id="res-desc-body"></div>
+      </div>
+      <div class="result-section">
+        <h3 id="res-heal-title"></h3>
+        <div class="heal-steps-list" id="res-heal-steps"></div>
+      </div>
+      <div class="result-section" id="res-shadow-section">
+        <h3 id="res-shadow-title"></h3>
+        <div id="res-shadow-body"></div>
+      </div>
+      <button class="q-retake-btn" onclick="resetQ()" id="res-retake">↩ Repetir cuestionario</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  let lang = 'es';
+  let scores = { correct: 0, answered: 0 };
+  let answeredQ = new Set();
+
+  function setLang(l) {
+    lang = l;
+    document.getElementById('btn-es').classList.toggle('active', l === 'es');
+    document.getElementById('btn-en').classList.toggle('active', l === 'en');
+    document.documentElement.lang = l;
+
+    document.querySelectorAll('[data-es]').forEach(el => {
+      el.textContent = el.getAttribute('data-' + l);
+    });
+  }
+
+  function showTab(id) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    event.currentTarget.classList.add('active');
+  }
+
+  function answer(btn, isCorrect) {
+    const qDiv = btn.closest('.quiz-question');
+    const qIndex = Array.from(document.querySelectorAll('.quiz-question')).indexOf(qDiv);
+    if (answeredQ.has(qIndex)) return;
+    answeredQ.add(qIndex);
+
+    const correctIdx = parseInt(qDiv.dataset.correct);
+    const opts = qDiv.querySelectorAll('.quiz-opt');
+    opts.forEach((o, i) => {
+      o.disabled = true;
+      if (i === correctIdx) o.classList.add('correct');
+    });
+    if (!isCorrect) btn.classList.add('wrong');
+
+    const exp = qDiv.querySelector('.quiz-explanation');
+    exp.textContent = exp.getAttribute('data-' + lang);
+    exp.classList.add('visible');
+
+    if (isCorrect) scores.correct++;
+    scores.answered++;
+
+    const scoreDiv = document.getElementById('quiz-score');
+    const total = document.querySelectorAll('.quiz-question').length;
+    scoreDiv.style.display = 'block';
+    document.getElementById('score-display').textContent = scores.correct + '/' + total;
+  }
+
+  // ── QUESTIONNAIRE ────────────────────────────────────────────────
+  const ARCHETYPES = ['puer','senex','mother','child','shadow'];
+
+  const qData = {
+    es: [
+      {
+        q: "Cuando empiezas un proyecto nuevo, ¿qué suele pasar?",
+        opts: [
+          { t: "Me entusiasmo muchísimo y trabajo con energía desbordante... hasta que pierde la novedad.", arch: 'puer' },
+          { t: "Lo planeo meticulosamente, establezco un sistema claro y lo ejecuto con disciplina.", arch: 'senex' },
+          { t: "Me pregunto si realmente lo necesito o si lo hago para no decepcionar a otros.", arch: 'mother' },
+          { t: "Veo todo el potencial y las posibilidades; me cuesta bajar a los detalles prácticos.", arch: 'child' },
+          { t: "Empiezo bien, pero cuando hay fricciones o conflictos, suelo desaparecer sin mucha explicación.", arch: 'shadow' }
+        ]
+      },
+      {
+        q: "¿Cómo te relacionas con el compromiso en las relaciones?",
+        opts: [
+          { t: "Me enamoro intensamente, pero cuando la relación se vuelve cotidiana y exigente, empiezo a sentir que me ahogo.", arch: 'puer' },
+          { t: "Soy leal y constante, quizás demasiado. A veces sacrifico mis propias necesidades por el otro.", arch: 'senex' },
+          { t: "Mi mayor miedo es el abandono. Hago mucho para que el otro se quede.", arch: 'mother' },
+          { t: "Idealizo a las personas al principio. Luego me decepciona que no sean lo que imaginaba.", arch: 'child' },
+          { t: "Tiendo a distanciarme emocionalmente cuando me siento vulnerable.", arch: 'shadow' }
+        ]
+      },
+      {
+        q: "Cuando piensas en tu futuro, ¿cuál es la imagen más honesta?",
+        opts: [
+          { t: "Siento que 'la vida real' aún no ha comenzado. Algún día, cuando las condiciones sean las correctas, todo se acomodará.", arch: 'puer' },
+          { t: "Tengo un plan claro. Me preocupa no cumplirlo exactamente como lo proyecté.", arch: 'senex' },
+          { t: "Me preocupa más el bienestar de las personas cercanas que el mío propio.", arch: 'mother' },
+          { t: "Tengo grandes visiones pero no siempre sé cómo materializarlas.", arch: 'child' },
+          { t: "No pienso mucho en el futuro. Prefiero manejar lo que viene.", arch: 'shadow' }
+        ]
+      },
+      {
+        q: "¿Cómo vives la rutina y la repetición?",
+        opts: [
+          { t: "Las detesto. Cuando algo deja de ser estimulante, necesito cambiarlo.", arch: 'puer' },
+          { t: "Son la base de mi estabilidad. Sin estructura me siento perdido.", arch: 'senex' },
+          { t: "La acepto si sirve para cuidar a quienes quiero.", arch: 'mother' },
+          { t: "Busco siempre renovar incluso lo rutinario, encontrarle un ángulo nuevo.", arch: 'child' },
+          { t: "La tolero en la superficie, pero interiormente me aburro y desconecto.", arch: 'shadow' }
+        ]
+      },
+      {
+        q: "¿Cómo reaccionas cuando alguien te pone límites o te dice que no?",
+        opts: [
+          { t: "Siento que me están cortando las alas. Suelo buscar otra salida o perder el interés.", arch: 'puer' },
+          { t: "Lo evalúo racionalmente. Si el límite es justo, lo respeto.", arch: 'senex' },
+          { t: "Me lo tomo de forma personal. Me pregunto qué hice mal.", arch: 'mother' },
+          { t: "Me genera curiosidad: ¿qué hay detrás de ese límite?", arch: 'child' },
+          { t: "Por fuera acepto, pero por dentro acumulo resentimiento silencioso.", arch: 'shadow' }
+        ]
+      },
+      {
+        q: "¿Cuál de estas frases podría haber salido de tu boca?",
+        opts: [
+          { t: "«Este trabajo es interesante, pero no es para toda la vida. Estoy buscando algo más auténtico.»", arch: 'puer' },
+          { t: "«Si no lo hago yo bien, nadie lo hará. Prefiero encargarme.»", arch: 'senex' },
+          { t: "«Me cuesta pedir ayuda. No quiero ser una carga para nadie.»", arch: 'mother' },
+          { t: "«Tengo tantas ideas que a veces no sé por dónde empezar.»", arch: 'child' },
+          { t: "«No siempre digo lo que pienso. Hay cosas que prefiero guardarme.»", arch: 'shadow' }
+        ]
+      },
+      {
+        q: "¿Qué relación tienes con la autoridad o las figuras de poder?",
+        opts: [
+          { t: "Me cuesta seguir reglas que no entiendo o no comparto. Las instituciones me asfixian.", arch: 'puer' },
+          { t: "Las respeto si son legítimas. Yo mismo tiendo a ocupar roles de autoridad.", arch: 'senex' },
+          { t: "Busco aprobación de figuras de autoridad. Su juicio sobre mí importa mucho.", arch: 'mother' },
+          { t: "Las cuestiono creativamente. Me gusta pensar fuera del sistema.", arch: 'child' },
+          { t: "Las tolero en público pero las socavo cuando puedo.", arch: 'shadow' }
+        ]
+      },
+      {
+        q: "¿Cómo manejas el fracaso o las críticas?",
+        opts: [
+          { t: "Me hunden un tiempo, luego encuentro algo nuevo que me entusiasme y sigo adelante.", arch: 'puer' },
+          { t: "Las analizo para mejorar. Las críticas injustas me irritan profundamente.", arch: 'senex' },
+          { t: "Las internalizo demasiado. Me pregunto si el crítico tiene razón aunque duela.", arch: 'mother' },
+          { t: "Las proceso como material creativo. Intento ver qué hay de útil en ellas.", arch: 'child' },
+          { t: "Externamente no muestro que me afectan, pero interiormente me quedo rumiando.", arch: 'shadow' }
+        ]
+      },
+      {
+        q: "¿Qué rol sueles jugar en un grupo?",
+        opts: [
+          { t: "El que genera ideas y entusiasmo, pero no siempre termina lo que empieza.", arch: 'puer' },
+          { t: "El que organiza, toma decisiones difíciles y mantiene el rumbo.", arch: 'senex' },
+          { t: "El que cuida la cohesión del grupo y gestiona los conflictos.", arch: 'mother' },
+          { t: "El que aporta visión y creatividad, aunque a veces resulte impráctica.", arch: 'child' },
+          { t: "El que opera en los márgenes. Observo más de lo que participo.", arch: 'shadow' }
+        ]
+      },
+      {
+        q: "¿Qué imagen te produce más resonancia interna?",
+        opts: [
+          { t: "Un pájaro que vuela libre y alto, lejos del suelo.", arch: 'puer' },
+          { t: "Un árbol viejo con raíces profundas que ha sobrevivido muchas tormentas.", arch: 'senex' },
+          { t: "Un mar que nutre y sostiene, pero también puede tragar.", arch: 'mother' },
+          { t: "Una semilla que contiene todo un bosque en potencia.", arch: 'child' },
+          { t: "Una sombra que cambia de forma según la luz.", arch: 'shadow' }
+        ]
+      },
+      {
+        q: "¿Cuál es tu mayor miedo más honesto?",
+        opts: [
+          { t: "Quedar atrapado. Ser definido. Que mi vida se cierre en algo demasiado pequeño.", arch: 'puer' },
+          { t: "Perder el control o el orden. Que todo se derrumbe por no haber previsto algo.", arch: 'senex' },
+          { t: "No ser necesitado. Que las personas que quiero puedan prescindir de mí.", arch: 'mother' },
+          { t: "No llegar a realizar mi potencial. Morir sin haber creado algo verdadero.", arch: 'child' },
+          { t: "Ser visto completamente. Que alguien descubra lo que hay detrás de mi imagen.", arch: 'shadow' }
+        ]
+      },
+      {
+        q: "¿Cómo describirías tu relación con el trabajo?",
+        opts: [
+          { t: "Trabajo con pasión cuando me apasiona. Cuando aburre, lo evito o lo abandono.", arch: 'puer' },
+          { t: "Soy constante y responsable. El trabajo me da identidad y propósito.", arch: 'senex' },
+          { t: "Trabajo mucho, pero a menudo para los demás. Me cuesta priorizarme.", arch: 'mother' },
+          { t: "Prefiero el trabajo que tiene sentido y posibilidad creativa. Lo puramente mecánico me vacía.", arch: 'child' },
+          { t: "Tengo capacidades que no siempre muestro. Me guardo cosas para mí.", arch: 'shadow' }
+        ]
+      }
+    ],
+    en: [
+      {
+        q: "When you start a new project, what tends to happen?",
+        opts: [
+          { t: "I get enormously excited and work with overflowing energy... until it loses its novelty.", arch: 'puer' },
+          { t: "I plan it meticulously, establish a clear system, and execute it with discipline.", arch: 'senex' },
+          { t: "I wonder if I really need it or whether I'm doing it to avoid disappointing others.", arch: 'mother' },
+          { t: "I see all the potential and possibilities; it's hard to come down to practical details.", arch: 'child' },
+          { t: "I start well, but when friction or conflict arises, I tend to disappear without much explanation.", arch: 'shadow' }
+        ]
+      },
+      {
+        q: "How do you relate to commitment in relationships?",
+        opts: [
+          { t: "I fall intensely in love, but when the relationship becomes routine and demanding, I start feeling suffocated.", arch: 'puer' },
+          { t: "I am loyal and constant, perhaps too much so. I sometimes sacrifice my own needs for others.", arch: 'senex' },
+          { t: "My greatest fear is abandonment. I do a lot to make sure the other person stays.", arch: 'mother' },
+          { t: "I idealize people at first. Then I'm disappointed when they don't match what I imagined.", arch: 'child' },
+          { t: "I tend to distance myself emotionally when I feel vulnerable.", arch: 'shadow' }
+        ]
+      },
+      {
+        q: "When you think about your future, what's the most honest image?",
+        opts: [
+          { t: "I feel like 'real life' hasn't started yet. Someday, when conditions are right, everything will fall into place.", arch: 'puer' },
+          { t: "I have a clear plan. I worry about not meeting it exactly as I projected.", arch: 'senex' },
+          { t: "I'm more concerned about the wellbeing of people close to me than my own.", arch: 'mother' },
+          { t: "I have big visions but don't always know how to materialize them.", arch: 'child' },
+          { t: "I don't think much about the future. I prefer handling what comes.", arch: 'shadow' }
+        ]
+      },
+      {
+        q: "How do you experience routine and repetition?",
+        opts: [
+          { t: "I hate them. When something stops being stimulating, I need to change it.", arch: 'puer' },
+          { t: "They are the foundation of my stability. Without structure I feel lost.", arch: 'senex' },
+          { t: "I accept it if it serves to care for the people I love.", arch: 'mother' },
+          { t: "I always look to renew even routine things, to find a new angle.", arch: 'child' },
+          { t: "I tolerate it on the surface, but inside I grow bored and disconnect.", arch: 'shadow' }
+        ]
+      },
+      {
+        q: "How do you react when someone sets limits or says no to you?",
+        opts: [
+          { t: "I feel like they're clipping my wings. I usually look for another way out or lose interest.", arch: 'puer' },
+          { t: "I evaluate it rationally. If the limit is fair, I respect it.", arch: 'senex' },
+          { t: "I take it personally. I wonder what I did wrong.", arch: 'mother' },
+          { t: "It makes me curious: what's behind that limit?", arch: 'child' },
+          { t: "Outwardly I accept it, but inwardly I accumulate silent resentment.", arch: 'shadow' }
+        ]
+      },
+      {
+        q: "Which phrase could have come out of your mouth?",
+        opts: [
+          { t: "\"This job is interesting, but it's not for life. I'm looking for something more authentic.\"", arch: 'puer' },
+          { t: "\"If I don't do it right, no one will. I'd rather handle it myself.\"", arch: 'senex' },
+          { t: "\"I find it hard to ask for help. I don't want to be a burden to anyone.\"", arch: 'mother' },
+          { t: "\"I have so many ideas that sometimes I don't know where to start.\"", arch: 'child' },
+          { t: "\"I don't always say what I think. There are things I prefer to keep to myself.\"", arch: 'shadow' }
+        ]
+      },
+      {
+        q: "What relationship do you have with authority or power figures?",
+        opts: [
+          { t: "I struggle to follow rules I don't understand or agree with. Institutions suffocate me.", arch: 'puer' },
+          { t: "I respect them if legitimate. I myself tend to occupy authority roles.", arch: 'senex' },
+          { t: "I seek approval from authority figures. Their judgment of me matters a lot.", arch: 'mother' },
+          { t: "I question them creatively. I like thinking outside the system.", arch: 'child' },
+          { t: "I tolerate them in public but undermine them when I can.", arch: 'shadow' }
+        ]
+      },
+      {
+        q: "How do you handle failure or criticism?",
+        opts: [
+          { t: "They knock me down for a while, then I find something new that excites me and move on.", arch: 'puer' },
+          { t: "I analyze them to improve. Unjust criticism irritates me deeply.", arch: 'senex' },
+          { t: "I internalize them too much. I wonder if the critic is right even when it hurts.", arch: 'mother' },
+          { t: "I process them as creative material. I try to see what's useful in them.", arch: 'child' },
+          { t: "Outwardly I don't show they affect me, but inside I keep ruminating.", arch: 'shadow' }
+        ]
+      },
+      {
+        q: "What role do you usually play in a group?",
+        opts: [
+          { t: "The one who generates ideas and enthusiasm, but doesn't always finish what they started.", arch: 'puer' },
+          { t: "The one who organizes, makes hard decisions, and keeps the direction.", arch: 'senex' },
+          { t: "The one who maintains group cohesion and handles conflicts.", arch: 'mother' },
+          { t: "The one who brings vision and creativity, even if sometimes impractical.", arch: 'child' },
+          { t: "I operate at the margins. I observe more than I participate.", arch: 'shadow' }
+        ]
+      },
+      {
+        q: "Which image resonates most deeply within you?",
+        opts: [
+          { t: "A bird flying free and high, far from the ground.", arch: 'puer' },
+          { t: "An old tree with deep roots that has survived many storms.", arch: 'senex' },
+          { t: "A sea that nourishes and sustains, but can also swallow.", arch: 'mother' },
+          { t: "A seed that contains an entire forest in potential.", arch: 'child' },
+          { t: "A shadow that changes shape according to the light.", arch: 'shadow' }
+        ]
+      },
+      {
+        q: "What is your most honest greatest fear?",
+        opts: [
+          { t: "Getting trapped. Being defined. Having my life close in on something too small.", arch: 'puer' },
+          { t: "Losing control or order. Having everything collapse because I didn't foresee something.", arch: 'senex' },
+          { t: "Not being needed. That the people I love can do without me.", arch: 'mother' },
+          { t: "Not realizing my potential. Dying without having created something true.", arch: 'child' },
+          { t: "Being completely seen. Someone discovering what lies behind my image.", arch: 'shadow' }
+        ]
+      },
+      {
+        q: "How would you describe your relationship with work?",
+        opts: [
+          { t: "I work with passion when I'm passionate about it. When it bores me, I avoid or abandon it.", arch: 'puer' },
+          { t: "I am consistent and responsible. Work gives me identity and purpose.", arch: 'senex' },
+          { t: "I work hard, but often for others. I find it hard to prioritize myself.", arch: 'mother' },
+          { t: "I prefer work that has meaning and creative possibility. Purely mechanical work empties me.", arch: 'child' },
+          { t: "I have abilities I don't always show. I keep things to myself.", arch: 'shadow' }
+        ]
+      }
+    ]
+  };
+
+  const archetypeData = {
+    es: {
+      puer: {
+        symbol: '☀',
+        color: '#b8976a',
+        bg: '#fdf6ec',
+        label: 'Tu arquetipo dominante',
+        name: 'El Puer Aeternus',
+        tagline: 'El eterno joven que huye de la tierra',
+        desc_title: '¿Qué significa esto?',
+        desc: `<p>Tu psicología está fuertemente influenciada por el arquetipo del puer aeternus — el eterno joven. Esto no es un defecto: trae consigo una espiritualidad viva, entusiasmo genuino, creatividad y un contacto cercano con el inconsciente. Hay algo del niño divino en ti que aún no ha sido "aplastado" por la vida convencional.</p>
+<p>El desafío es que ese mismo arquetipo, cuando domina el ego, produce lo que Von Franz llama la "vida provisional": la sensación de que la vida real aún no ha comenzado, la dificultad para comprometerse, el terror a ser definido. Cada vez que algo se vuelve rutinario, la energía se retira hacia la búsqueda de lo próximo.</p>`,
+        heal_title: 'Camino de sanación según Von Franz',
+        heal_steps: [
+          { t: 'El trabajo en la mañana gris', d: 'La cura no está en encontrar el trabajo perfecto — está en no abandonar el trabajo cuando se vuelve aburrido. Ese momento de resistencia es exactamente donde reside la transformación.' },
+          { t: 'Comprometerse con algo concreto', d: 'No el compromiso perfecto ni la persona perfecta. Cualquier compromiso real — un oficio, una relación, un proyecto a largo plazo — que se mantenga cuando deja de ser emocionante.' },
+          { t: 'Escuchar los sueños', d: 'El inconsciente suele enviar, en los momentos de mayor resistencia, sueños que muestran que hay que empujar. Vivir según esos sueños es el camino analítico.' },
+          { t: 'Fortalecer el ego gradualmente', d: 'No se puede saltear el proceso. El ego debe fortalecerse en el análisis antes de que el trabajo constante sea posible. La secuencia importa.' },
+          { t: 'Aceptar la encarnación', d: 'Elegir ser esta persona específica, en este lugar y tiempo, con estas limitaciones. Los dones del puer no desaparecen — se vuelven reales cuando se les da un cuerpo.' }
+        ],
+        shadow_title: 'Tu sombra a trabajar',
+        shadow: '<p>La sombra del puer es la frialdad brutal que se oculta detrás del sentimentalismo. Cuando abandonas algo — un trabajo, una relación — con la sensación de que "simplemente dejó de funcionar", hay una frialdad en esa acción que vale la pena examinar. Von Franz lo llama la sombra inconsciente: la brutalidad que el encanto no puede ver.</p><p>Pregunta útil: ¿Hay alguien a quien hayas dejado sin dar explicaciones reales?</p>'
+      },
+      senex: {
+        symbol: '🜍',
+        color: '#2d3561',
+        bg: '#edf0f8',
+        label: 'Tu arquetipo dominante',
+        name: 'El Senex',
+        tagline: 'El anciano, la estructura, el tiempo',
+        desc_title: '¿Qué significa esto?',
+        desc: `<p>Tu psicología está fuertemente influenciada por el arquetipo del senex — el anciano sabio, el principio de orden, estructura y tradición. Esto trae consigo una capacidad genuina para la responsabilidad, la disciplina y la visión a largo plazo. Eres de los que terminan lo que empiezan.</p>
+<p>El desafío del senex es el polo opuesto al puer: donde el puer huye del compromiso, el senex puede volverse rígido, controlador y desconectado de la vida espontánea. Cuando el senex domina sin el contrapeso del puer, la psique se petrifica: las reglas reemplazan al misterio, el deber reemplaza al deseo.</p>`,
+        heal_title: 'Camino de sanación según Von Franz',
+        heal_steps: [
+          { t: 'Recuperar el puer interior', d: 'Von Franz es clara: la madurez no es elegir el senex sobre el puer. Es integrar la tensión entre los dos. El senex necesita recuperar la espontaneidad, el juego y el contacto con el inconsciente.' },
+          { t: 'Soltar el control en lugares específicos', d: 'Identifica una área de tu vida donde el control sea excesivo y practica intencionalmente ceder. No todo necesita ser administrado.' },
+          { t: 'Relacionarse con los sueños', d: 'El senex tiende a interpretar todo racionalmente. Pero la psique habla en imágenes. Tomar los sueños en serio — sin reducirlos a lógica — abre la puerta al puer.' },
+          { t: 'Permitirse no saber', d: 'La sabiduría genuina del senex incluye reconocer los límites del conocimiento. La rigidez y la sabiduría son cosas distintas.' },
+          { t: 'Buscar lo que te entusiasma sin propósito', d: 'No todo tiene que ser productivo. Hay una cura en permitirse actividades que no "llevan a ningún lado" — arte, exploración, juego puro.' }
+        ],
+        shadow_title: 'Tu sombra a trabajar',
+        shadow: '<p>La sombra del senex es la tiranía: la autoridad que aplasta en lugar de sostener. Puede manifestarse como perfeccionismo que paraliza a los demás, o como la certeza de que la propia forma de hacer las cosas es la correcta. Von Franz advierte que el senex sin el puer se convierte en un padre negativo — que bloquea el crecimiento en lugar de facilitarlo.</p><p>Pregunta útil: ¿Hay alguien en tu vida que sienta que nunca llega a ser suficiente para ti?</p>'
+      },
+      mother: {
+        symbol: '⊕',
+        color: '#7a4a2a',
+        bg: '#f8f0ea',
+        label: 'Tu arquetipo dominante',
+        name: 'La Gran Madre',
+        tagline: 'La que nutre y no puede soltar',
+        desc_title: '¿Qué significa esto?',
+        desc: `<p>Tu psicología está fuertemente influenciada por el arquetipo de la Gran Madre — el principio que nutre, sostiene y contiene. Esto trae una enorme capacidad para el cuidado, la empatía y la conexión profunda. Las personas a tu alrededor suelen sentir que están sostenidas.</p>
+<p>El desafío es el polo negativo de este arquetipo: la madre que no puede soltar, que necesita ser necesitada, que se disuelve en el otro. Von Franz describe cómo el complejo materno atrapa tanto al que da como al que recibe: quien da demasiado también encadena. La pregunta central es si estás cuidando desde el amor o desde el miedo al abandono.</p>`,
+        heal_title: 'Camino de sanación según Von Franz',
+        heal_steps: [
+          { t: 'Aprender a recibir', d: 'El cuidado que fluye sólo en una dirección es un desequilibrio. Practicar activamente pedir ayuda y recibirla es una forma de romper el patrón.' },
+          { t: 'Separar el amor del control', d: 'Amar sin necesitar un resultado específico. Cuidar sin necesitar que el otro permanezca cerca o te necesite de vuelta de una forma determinada.' },
+          { t: 'Encontrar tu propia necesidad', d: 'Von Franz señala que detrás del cuidado excesivo suele haber necesidades propias no reconocidas. El trabajo analítico pasa por identificar qué es lo que tú realmente necesitas.' },
+          { t: 'Diferenciar el ánima del otro', d: 'En la psicología junguiana, hay un punto en que hay que distinguir entre el amor real y la proyección. ¿Amas a esta persona específica, o a la imagen que has construido de ella?' },
+          { t: 'Soltar como acto de amor', d: 'La verdadera nutrición a veces es dejar ir. Separarse no es abandonar — a veces es el regalo más grande que se puede dar.' }
+        ],
+        shadow_title: 'Tu sombra a trabajar',
+        shadow: '<p>La sombra de la Gran Madre es la madre devoradora: aquella que retiene, que envuelve, que produce dependencia. Puede no ser consciente — puede sentirse como amor. Pero Von Franz es clara: hay un polo en este arquetipo que impide el crecimiento del otro. La pregunta es si, en tu cuidado, estás permitiendo que las personas a tu alrededor se conviertan en quienes necesitan ser.</p><p>Pregunta útil: ¿Hay alguien en tu vida que no haya podido crecer por tu presencia?</p>'
+      },
+      child: {
+        symbol: '✦',
+        color: '#3a6a2a',
+        bg: '#edf5ea',
+        label: 'Tu arquetipo dominante',
+        name: 'El Niño Divino',
+        tagline: 'La semilla que contiene un bosque',
+        desc_title: '¿Qué significa esto?',
+        desc: `<p>Tu psicología está fuertemente influenciada por el arquetipo del Niño Divino — el principio de lo nuevo, el potencial no realizado, la renovación perpetua. Esto trae una creatividad genuina, una apertura al misterio y una capacidad para ver posibilidades donde otros ven obstáculos.</p>
+<p>El desafío es que este arquetipo vive en el reino de lo posible, no de lo real. La semilla que contiene un bosque aún no es el bosque. Von Franz advierte sobre la inflación psíquica: cuando el ego se identifica con el Niño Divino, la persona siente que tiene una misión especial, un potencial único — pero esa convicción puede ser una trampa que impide la encarnación real de los dones.</p>`,
+        heal_title: 'Camino de sanación según Von Franz',
+        heal_steps: [
+          { t: 'Materializar una cosa', d: 'El Niño Divino existe en el plano del potencial. La cura es elegir una sola visión y llevarla hasta su forma concreta — terminada, publicada, construida, presentada.' },
+          { t: 'Distinguir visión de inflación', d: 'No toda gran idea es un llamado genuino. El trabajo analítico ayuda a distinguir cuál creatividad viene del inconsciente profundo y cuál es una defensa contra la vida ordinaria.' },
+          { t: 'Tolerar el proceso imperfecto', d: 'La creación real es desordenada. Tolerar que el proceso no sea tan iluminado como la visión inicial es esencial para que algo real nazca.' },
+          { t: 'Integrar el senex', d: 'El Niño Divino necesita del senex — estructura, disciplina, constancia — para que su potencial se convierta en realidad. Sin el senex, la semilla nunca germina.' },
+          { t: 'Rendirse ante la forma limitada', d: 'La encarnación siempre es una reducción de lo posible. Elegir esta forma, en este momento, sabiendo que cierra otras puertas, es el acto de madurez que el Niño Divino necesita aprender.' }
+        ],
+        shadow_title: 'Tu sombra a trabajar',
+        shadow: '<p>La sombra del Niño Divino es la megalomanía: la convicción de que se es especial de un modo que exime de las exigencias ordinarias de la vida. Puede manifestarse como una sensación persistente de que "aún no es el momento" para mostrar los propios dones, o como una narrativa de potencial no reconocido que justifica no actuar.</p><p>Pregunta útil: ¿Cuánto tiempo llevas esperando las condiciones correctas para dar el paso que sabes que necesitas dar?</p>'
+      },
+      shadow: {
+        symbol: '◐',
+        color: '#4a3a6a',
+        bg: '#f0edf8',
+        label: 'Tu arquetipo dominante',
+        name: 'La Sombra del Puer',
+        tagline: 'Lo que se oculta detrás del encanto',
+        desc_title: '¿Qué significa esto?',
+        desc: `<p>Tu respuesta al cuestionario sugiere que el aspecto de la sombra del puer — la parte no integrada, la que opera en los márgenes — tiene una influencia significativa en tu psicología. Esto puede manifestarse como una distancia emocional que protege, una tendencia a operar "desde atrás", o una sensación de que tu imagen pública no corresponde a lo que hay dentro.</p>
+<p>Von Franz señala que la sombra no es el enemigo — es el portador de lo que aún no ha sido integrado. Muchas veces, lo más valioso de una persona vive en su sombra: el talento que no se ha mostrado, la verdad que no se ha dicho, el deseo que no se ha reconocido.</p>`,
+        heal_title: 'Camino de sanación según Von Franz',
+        heal_steps: [
+          { t: 'Hacer consciente lo que opera en la oscuridad', d: 'El primer paso es siempre el mismo: nombrar. ¿Qué es lo que no dices? ¿Qué es lo que haces cuando nadie mira? ¿Cuál es el resentimiento que guardas en silencio?' },
+          { t: 'Distinguir sombra regresiva de sombra progresiva', d: 'Von Franz distingue: hay una sombra que tira hacia atrás (lo infantil no resuelto) y una que apunta hacia adelante (el potencial no vivido). Los sueños son la herramienta para distinguirlas.' },
+          { t: 'Arriesgarse a ser visto', d: 'La sombra se alimenta del secreto. Mostrarse — con tus contradicciones, con tu complejidad — es uno de los actos más curativos posibles.' },
+          { t: 'Integrar sin demonizar', d: 'Lo que está en la sombra no es malo per se — es lo que fue rechazado. La integración no significa actuarlo todo: significa reconocerlo, relacionarse con él, darle un lugar.' },
+          { t: 'Trabajar con la frialdad', d: 'Von Franz señala que en la sombra del puer hay una frialdad que contrasta con el encanto exterior. Examinar los momentos en que esa frialdad aparece — hacia quién, en qué situaciones — es el trabajo específico.' }
+        ],
+        shadow_title: 'Lo que hay de luz en tu sombra',
+        shadow: '<p>Von Franz hace una advertencia importante sobre el análisis puramente reductivo: hay un hombre que "curó" su complejo pero dijo amargamente "me quitaron mis demonios, pero también mis ángeles". Lo que está en la sombra no es sólo peligroso — muchas veces contiene los dones más genuinos: la sensibilidad que se ocultó por miedo al rechazo, la inteligencia que se guardó para no intimidar, la necesidad afectiva que se negó para no parecer débil.</p><p>Pregunta útil: ¿Qué parte de ti nadie conoce, y que de verdad merecería ser conocida?</p>'
+      }
+    },
+    en: {
+      puer: {
+        symbol: '☀',
+        color: '#b8976a',
+        bg: '#fdf6ec',
+        label: 'Your dominant archetype',
+        name: 'The Puer Aeternus',
+        tagline: 'The eternal youth who flees the earth',
+        desc_title: 'What does this mean?',
+        desc: `<p>Your psychology is strongly influenced by the puer aeternus archetype — the eternal youth. This is not a flaw: it brings a living spirituality, genuine enthusiasm, creativity, and a close contact with the unconscious. There is something of the divine child in you that hasn't yet been "crushed" by conventional life.</p>
+<p>The challenge is that this same archetype, when it dominates the ego, produces what Von Franz calls the "provisional life": the feeling that real life hasn't started yet, difficulty committing, terror of being defined. Every time something becomes routine, the energy withdraws toward the search for what's next.</p>`,
+        heal_title: 'Healing path according to Von Franz',
+        heal_steps: [
+          { t: 'Work on the grey morning', d: 'The cure is not in finding the perfect work — it is in not abandoning work when it becomes boring. That moment of resistance is exactly where transformation lies.' },
+          { t: 'Commit to something concrete', d: 'Not the perfect commitment or the perfect person. Any real commitment — a craft, a relationship, a long-term project — that is maintained when it stops being exciting.' },
+          { t: 'Listen to dreams', d: 'The unconscious tends to send, in moments of greatest resistance, dreams that show there is a need to push through. Living according to those dreams is the analytical path.' },
+          { t: 'Strengthen the ego gradually', d: 'The process cannot be skipped. The ego must be strengthened in analysis before consistent work becomes possible. The sequence matters.' },
+          { t: 'Accept incarnation', d: 'Choose to be this specific person, in this place and time, with these limitations. The puer\'s gifts don\'t disappear — they become real when given a body.' }
+        ],
+        shadow_title: 'Your shadow to work with',
+        shadow: '<p>The puer\'s shadow is the brutal coldness that hides behind sentimentalism. When you abandon something — a job, a relationship — with the sense that it "just stopped working," there is a coldness in that action worth examining. Von Franz calls it the unconscious shadow: the brutality that the charm cannot see.</p><p>Useful question: Is there someone you left without giving real explanations?</p>'
+      },
+      senex: {
+        symbol: '🜍',
+        color: '#2d3561',
+        bg: '#edf0f8',
+        label: 'Your dominant archetype',
+        name: 'The Senex',
+        tagline: 'The old man, structure, time',
+        desc_title: 'What does this mean?',
+        desc: `<p>Your psychology is strongly influenced by the senex archetype — the wise old man, the principle of order, structure, and tradition. This brings a genuine capacity for responsibility, discipline, and long-term vision. You are the kind of person who finishes what they start.</p>
+<p>The senex's challenge is the opposite of the puer: where the puer flees commitment, the senex can become rigid, controlling, and disconnected from spontaneous life. When the senex dominates without the puer's counterweight, the psyche petrifies: rules replace mystery, duty replaces desire.</p>`,
+        heal_title: 'Healing path according to Von Franz',
+        heal_steps: [
+          { t: 'Recover the inner puer', d: 'Von Franz is clear: maturity is not choosing the senex over the puer. It is integrating the tension between the two. The senex needs to recover spontaneity, play, and contact with the unconscious.' },
+          { t: 'Release control in specific areas', d: 'Identify one area of your life where control is excessive and intentionally practice surrendering. Not everything needs to be managed.' },
+          { t: 'Relate to dreams', d: 'The senex tends to interpret everything rationally. But the psyche speaks in images. Taking dreams seriously — without reducing them to logic — opens the door to the puer.' },
+          { t: 'Allow yourself not to know', d: 'Genuine senex wisdom includes recognizing the limits of knowledge. Rigidity and wisdom are different things.' },
+          { t: 'Seek what enthuses you without purpose', d: 'Not everything has to be productive. There is a cure in allowing yourself activities that "lead nowhere" — art, exploration, pure play.' }
+        ],
+        shadow_title: 'Your shadow to work with',
+        shadow: '<p>The senex\'s shadow is tyranny: authority that crushes instead of sustains. It can manifest as perfectionism that paralyzes others, or as the certainty that your way of doing things is the correct one. Von Franz warns that the senex without the puer becomes a negative father — one who blocks growth rather than facilitating it.</p><p>Useful question: Is there someone in your life who feels they can never be enough for you?</p>'
+      },
+      mother: {
+        symbol: '⊕',
+        color: '#7a4a2a',
+        bg: '#f8f0ea',
+        label: 'Your dominant archetype',
+        name: 'The Great Mother',
+        tagline: 'The one who nurtures and cannot let go',
+        desc_title: 'What does this mean?',
+        desc: `<p>Your psychology is strongly influenced by the Great Mother archetype — the principle that nurtures, sustains, and contains. This brings an enormous capacity for care, empathy, and deep connection. People around you often feel held.</p>
+<p>The challenge is the negative pole of this archetype: the mother who cannot let go, who needs to be needed, who dissolves into the other. Von Franz describes how the mother complex traps both the one who gives and the one who receives: those who give too much also bind. The central question is whether you are caring from love or from fear of abandonment.</p>`,
+        heal_title: 'Healing path according to Von Franz',
+        heal_steps: [
+          { t: 'Learn to receive', d: 'Care that flows in only one direction is an imbalance. Actively practicing asking for help and receiving it is a way to break the pattern.' },
+          { t: 'Separate love from control', d: 'Love without needing a specific result. Care without needing the other to stay close or need you back in a particular way.' },
+          { t: 'Find your own need', d: 'Von Franz points out that behind excessive care there are usually unacknowledged personal needs. The analytical work involves identifying what you yourself really need.' },
+          { t: 'Differentiate the other\'s anima', d: 'In Jungian psychology, there is a point where you must distinguish between real love and projection. Do you love this specific person, or the image you have built of them?' },
+          { t: 'Letting go as an act of love', d: 'True nurturing sometimes means letting go. Separating is not abandoning — sometimes it is the greatest gift one can give.' }
+        ],
+        shadow_title: 'Your shadow to work with',
+        shadow: '<p>The Great Mother\'s shadow is the devouring mother: the one who retains, who envelops, who produces dependency. It may not be conscious — it can feel like love. But Von Franz is clear: there is a pole in this archetype that prevents the other\'s growth. The question is whether, in your care, you are allowing the people around you to become who they need to be.</p><p>Useful question: Is there someone in your life who has not been able to grow because of your presence?</p>'
+      },
+      child: {
+        symbol: '✦',
+        color: '#3a6a2a',
+        bg: '#edf5ea',
+        label: 'Your dominant archetype',
+        name: 'The Divine Child',
+        tagline: 'The seed that contains a forest',
+        desc_title: 'What does this mean?',
+        desc: `<p>Your psychology is strongly influenced by the Divine Child archetype — the principle of the new, unrealized potential, perpetual renewal. This brings genuine creativity, openness to mystery, and a capacity to see possibilities where others see obstacles.</p>
+<p>The challenge is that this archetype lives in the realm of the possible, not the real. The seed that contains a forest is not yet the forest. Von Franz warns about psychic inflation: when the ego identifies with the Divine Child, the person feels they have a special mission, unique potential — but that conviction can be a trap that prevents the real incarnation of gifts.</p>`,
+        heal_title: 'Healing path according to Von Franz',
+        heal_steps: [
+          { t: 'Materialize one thing', d: 'The Divine Child exists on the plane of potential. The cure is to choose a single vision and carry it to its concrete form — finished, published, built, presented.' },
+          { t: 'Distinguish vision from inflation', d: 'Not every great idea is a genuine calling. Analytical work helps distinguish which creativity comes from the deep unconscious and which is a defense against ordinary life.' },
+          { t: 'Tolerate the imperfect process', d: 'Real creation is messy. Tolerating that the process is not as illuminated as the initial vision is essential for something real to be born.' },
+          { t: 'Integrate the senex', d: 'The Divine Child needs the senex — structure, discipline, constancy — for its potential to become reality. Without the senex, the seed never germinates.' },
+          { t: 'Surrender to limited form', d: 'Incarnation is always a reduction of what is possible. Choosing this form, in this moment, knowing it closes other doors, is the act of maturity the Divine Child needs to learn.' }
+        ],
+        shadow_title: 'Your shadow to work with',
+        shadow: '<p>The Divine Child\'s shadow is megalomania: the conviction of being special in a way that exempts one from the ordinary demands of life. It can manifest as a persistent sense that "it\'s not yet the moment" to show one\'s gifts, or as a narrative of unrecognized potential that justifies not acting.</p><p>Useful question: How long have you been waiting for the right conditions to take the step you know you need to take?</p>'
+      },
+      shadow: {
+        symbol: '◐',
+        color: '#4a3a6a',
+        bg: '#f0edf8',
+        label: 'Your dominant archetype',
+        name: 'The Puer\'s Shadow',
+        tagline: 'What hides behind the charm',
+        desc_title: 'What does this mean?',
+        desc: `<p>Your questionnaire responses suggest that the shadow aspect of the puer — the unintegrated part, the one that operates at the margins — has significant influence on your psychology. This can manifest as an emotional distance that protects, a tendency to operate "from behind," or a sense that your public image doesn't correspond to what's inside.</p>
+<p>Von Franz points out that the shadow is not the enemy — it is the carrier of what hasn't yet been integrated. Very often, what is most valuable in a person lives in their shadow: talent not yet shown, truth not yet spoken, need not yet recognized.</p>`,
+        heal_title: 'Healing path according to Von Franz',
+        heal_steps: [
+          { t: 'Make conscious what operates in darkness', d: 'The first step is always the same: name it. What is it you don\'t say? What do you do when no one is watching? What is the resentment you keep in silence?' },
+          { t: 'Distinguish regressive from progressive shadow', d: 'Von Franz distinguishes: there is a shadow that pulls backward (unresolved infantile material) and one that points forward (unlived potential). Dreams are the tool for telling them apart.' },
+          { t: 'Risk being seen', d: 'The shadow feeds on secrecy. Showing yourself — with your contradictions, your complexity — is one of the most healing acts possible.' },
+          { t: 'Integrate without demonizing', d: 'What is in the shadow is not bad per se — it is what was rejected. Integration doesn\'t mean acting it all out: it means recognizing it, relating to it, giving it a place.' },
+          { t: 'Work with the coldness', d: 'Von Franz points out that in the puer\'s shadow there is a coldness that contrasts with outer charm. Examining the moments when that coldness appears — toward whom, in what situations — is the specific work.' }
+        ],
+        shadow_title: 'The light in your shadow',
+        shadow: '<p>Von Franz makes an important warning about purely reductive analysis: there is a man who "cured" his complex but said bitterly "they took away my demons, but also my angels." What is in the shadow is not only dangerous — it often contains the most genuine gifts: the sensitivity that was hidden for fear of rejection, the intelligence that was kept back to avoid intimidating, the affective need that was denied to avoid appearing weak.</p><p>Useful question: What part of you does no one know, and that truly deserves to be known?</p>'
+      }
+    }
+  };
+
+  let qState = { idx: 0, tallies: { puer: 0, senex: 0, mother: 0, child: 0, shadow: 0 } };
+
+  function startQ() {
+    qState = { idx: 0, tallies: { puer: 0, senex: 0, mother: 0, child: 0, shadow: 0 } };
+    document.getElementById('q-intro').style.display = 'none';
+    document.getElementById('q-flow').style.display = 'block';
+    document.getElementById('q-result').style.display = 'none';
+    renderQ();
+  }
+
+  function renderQ() {
+    const questions = qData[lang];
+    const total = questions.length;
+    const q = questions[qState.idx];
+    document.getElementById('q-prog').style.width = ((qState.idx / total) * 100) + '%';
+    document.getElementById('q-num').textContent = (lang === 'es' ? 'Pregunta ' : 'Question ') + (qState.idx + 1) + ' / ' + total;
+    document.getElementById('q-text').textContent = q.q;
+    const letters = ['A','B','C','D','E'];
+    const shuffled = [...q.opts].sort(() => Math.random() - 0.5);
+    document.getElementById('q-opts').innerHTML = shuffled.map((opt, i) =>
+      `<button class="q-opt-btn" onclick="pickOpt('${opt.arch}')">
+        <span class="q-opt-letter">${letters[i]}</span>
+        <span>${opt.t}</span>
+      </button>`
+    ).join('');
+  }
+
+  function pickOpt(arch) {
+    qState.tallies[arch]++;
+    qState.idx++;
+    const total = qData[lang].length;
+    if (qState.idx >= total) {
+      showResult();
+    } else {
+      renderQ();
+    }
+  }
+
+  function showResult() {
+    document.getElementById('q-flow').style.display = 'none';
+    document.getElementById('q-result').style.display = 'block';
+    const tallies = qState.tallies;
+    const dominant = Object.entries(tallies).sort((a,b) => b[1]-a[1])[0][0];
+    const d = archetypeData[lang][dominant];
+    const total = qData[lang].length;
+
+    const header = document.getElementById('res-header');
+    header.style.background = d.bg;
+    document.getElementById('res-symbol').textContent = d.symbol;
+    document.getElementById('res-label').textContent = d.label;
+    document.getElementById('res-label').style.color = d.color;
+    document.getElementById('res-name').textContent = d.name;
+    document.getElementById('res-name').style.color = d.color;
+    document.getElementById('res-tagline').textContent = d.tagline;
+
+    const archNames = { puer: 'Puer', senex: 'Senex', mother: lang==='es'?'G. Madre':'G. Mother', child: lang==='es'?'N. Divino':'D. Child', shadow: lang==='es'?'Sombra':'Shadow' };
+    document.getElementById('res-scores').innerHTML = ARCHETYPES.map(a => {
+      const pct = Math.round((tallies[a] / total) * 100);
+      return `<div class="score-pill ${a === dominant ? 'dominant' : ''}">
+        <div class="score-pill-name">${archNames[a]}</div>
+        <div class="score-pill-bar"><div class="score-pill-fill" style="width:${pct}%"></div></div>
+        <div class="score-pill-num">${pct}%</div>
+      </div>`;
+    }).join('');
+
+    document.getElementById('res-desc-title').textContent = d.desc_title;
+    document.getElementById('res-desc-body').innerHTML = d.desc;
+    document.getElementById('res-heal-title').textContent = d.heal_title;
+    document.getElementById('res-heal-steps').innerHTML = d.heal_steps.map((s, i) =>
+      `<div class="heal-step-item">
+        <div class="heal-step-dot">${i+1}</div>
+        <div class="heal-step-text"><strong>${s.t}.</strong> ${s.d}</div>
+      </div>`
+    ).join('');
+    document.getElementById('res-shadow-title').textContent = d.shadow_title;
+    document.getElementById('res-shadow-body').innerHTML = d.shadow;
+    document.getElementById('res-retake').textContent = lang === 'es' ? '↩ Repetir cuestionario' : '↩ Retake questionnaire';
+
+    document.getElementById('res-result').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function resetQ() {
+    document.getElementById('q-intro').style.display = 'block';
+    document.getElementById('q-flow').style.display = 'none';
+    document.getElementById('q-result').style.display = 'none';
+  }
+</script>
+</body>
+</html>
